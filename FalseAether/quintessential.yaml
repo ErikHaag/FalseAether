@@ -1,0 +1,15 @@
+Name: FalseAether
+Version: 0.0.1
+#Icon: mod_icon.png
+Title: "False Ather"
+Desc: "In the persuit of the divine, the divine have began to persue us."
+DLL: FalseAether.dll
+Dependencies:
+- Name: Quintessential
+  Version: 0.6.0
+- Name: Brimstone
+  Version: 2.0.3
+OptionalDependencies:
+- Name: FTSIGCTU
+  Version: 0.7.4
+#Mappings:
