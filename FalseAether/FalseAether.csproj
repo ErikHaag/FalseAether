@@ -11,7 +11,7 @@
 
 	<ItemGroup>
 		<Reference Include="Brimstone">
-			<HintPath>$(OpusPath)\UnpackedMods\Brimstone_2.2.0\Brimstone.dll</HintPath>
+			<HintPath>$(OpusPath)\UnpackedMods\Brimstone_2.2.1\Brimstone.dll</HintPath>
 		</Reference>
 		<Reference Include="MMHOOK_ModdedLightning">
 			<HintPath>$(OpusPath)\MMHOOK_ModdedLightning.dll</HintPath>
