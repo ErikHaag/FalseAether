@@ -10,11 +10,14 @@ public class MainClass : QuintessentialMod
     public static readonly string TrueSightPermission = "FalseAether:TrueSight";
     public static readonly string AbsolutionPermission = "FalseAether:Absolution";
 
+    public static string contentPath;
+
     public override void Load() {
         Logger.Log(LoggerPrefix + "Oh I am salting it man I am salting it so hard.");
     }
     
     public override void LoadPuzzleContent() {
+        contentPath = Brimstone.API.GetContentPath("FalseAether").method_1087();
         Logger.Log(LoggerPrefix + "Creating the Grace");
         Atoms.LoadAtoms();
         Logger.Log(LoggerPrefix + "Charting It Up!");
@@ -26,6 +29,8 @@ public class MainClass : QuintessentialMod
         QApi.AddPuzzlePermission(AbsolutionPermission, "Glyph of Absolution", "False Aether: Gracing Anymae");
         QApi.AddPuzzlePermission(EmpowermentPermission, "Glyph of Empowerment", "False Aether: Gracing Anymae");
         QApi.AddPuzzlePermission(TrueSightPermission, "Glyph of True Sight", "False Aether: Gracing Anymae");
+        Logger.Log(LoggerPrefix + "Listening for sounds");
+        Sounds.LoadSounds();
     }
     
     public override void PostLoad()

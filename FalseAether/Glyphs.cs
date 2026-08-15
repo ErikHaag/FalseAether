@@ -49,8 +49,8 @@ public static class Glyphs
         {
             Vector2 pivot = new Vector2(41f, 48f);
             renderer.method_523(class_238.field_1989.field_90.field_255.field_288, new Vector2(-1f, -1f), pivot, 0);
-            renderer.method_528(Textures.Inquisition.MagisBowl, InquisitionMagisBowl, Vector2.Zero);
-            renderer.method_528(Textures.Inquisition.DaedrumBowl, InquisitionDaedrumBowl, Vector2.Zero);
+            renderer.method_529(Textures.Inquisition.MagisBowl, InquisitionMagisBowl, Vector2.Zero);
+            renderer.method_529(Textures.Inquisition.DaedrumBowl, InquisitionDaedrumBowl, Vector2.Zero);
         });
 
         Polarization = Brimstone.API.CreateSimpleGlyph(
@@ -70,9 +70,11 @@ public static class Glyphs
         QApi.AddPartType(Polarization, static (part, pos, editor, renderer) =>
         {
             Vector2 pivot = new Vector2(41f, 48f);
-            renderer.method_523(class_238.field_1989.field_90.field_255.field_288, new Vector2(-1f, -1f), pivot, 0);
-            renderer.method_528(class_238.field_1989.field_90.field_255.field_292, PolarizationImmoralBowl, Vector2.Zero);
-            renderer.method_528(class_238.field_1989.field_90.field_255.field_292, PolarizationMoralBowl, Vector2.Zero);
+            renderer.method_523(Textures.Polarization.PolarizationBase, new Vector2(-1f, -1f), pivot, 0);
+            renderer.method_528(Textures.SharedTextures.BasicBowl, PolarizationImmoralBowl, Vector2.Zero);
+            renderer.method_529(Textures.Polarization.PolarizationEngraving, PolarizationImmoralBowl, Vector2.Zero);
+            renderer.method_528(Textures.SharedTextures.BasicBowl, PolarizationMoralBowl, Vector2.Zero);
+            renderer.method_529(Textures.Polarization.PolarizationEngraving, PolarizationMoralBowl, Vector2.Zero);
         });
 
         Absolution = Brimstone.API.CreateSimpleGlyph(
@@ -93,8 +95,10 @@ public static class Glyphs
         {
             Vector2 pivot = new Vector2(41f, 48f);
             renderer.method_523(class_238.field_1989.field_90.field_255.field_288, new Vector2(-1f, -1f), pivot, 0);
-            renderer.method_528(class_238.field_1989.field_90.field_255.field_292, AbsolutionImmoralBowl, Vector2.Zero);
-            renderer.method_528(class_238.field_1989.field_90.field_255.field_292, AbsolutionMoralBowl, Vector2.Zero);
+            renderer.method_528(Textures.SharedTextures.BasicBowl, AbsolutionImmoralBowl, Vector2.Zero);
+            renderer.method_529(Textures.Absolution.Engravings, AbsolutionImmoralBowl, Vector2.Zero);
+            renderer.method_528(Textures.SharedTextures.BasicBowl, AbsolutionMoralBowl, Vector2.Zero);
+            renderer.method_529(Textures.Absolution.Engravings, AbsolutionMoralBowl, Vector2.Zero);
         });
 
 
@@ -116,6 +120,8 @@ public static class Glyphs
         {
             Vector2 centre = new Vector2(41f, 49f);
             renderer.method_523(Textures.TrueSight.TrueSightBase, new Vector2(-1, -1), centre, 0f);
+            renderer.method_529(Textures.TrueSight.TrueSightEye, new(0, 0), Vector2.Zero);
+
         });
 
 
@@ -138,7 +144,9 @@ public static class Glyphs
             Vector2 pivot = new Vector2(123f, 48f);
             renderer.method_523(Textures.Empowerment.Base, new Vector2(0f, -1f), pivot, 0);
             renderer.method_528(Textures.Empowerment.AnymaeBowl, EmpowermentAnymaeBowl, Vector2.Zero);
+            renderer.method_529(Textures.Empowerment.SaltSymbol, EmpowermentAnymaeBowl, Vector2.Zero);
             renderer.method_528(Textures.Empowerment.PowerBowl, EmpowermentPowerBowl, Vector2.Zero); 
+            renderer.method_529(Textures.Empowerment.PowerSymbol, EmpowermentPowerBowl, Vector2.Zero); 
         });
 
         QApi.RunDuringCycle(static (sim, part, pss, first) =>
@@ -156,6 +164,8 @@ public static class Glyphs
                 }
                 Brimstone.API.ChangeAtom(MagisSubject, Atoms.Magis);
                 Brimstone.API.ChangeAtom(DaedrumSubject, Atoms.Daedrum);
+
+                Brimstone.API.PlaySound(sim, Sounds.Inquisition);
             }
 
             else if (type == Polarization)
@@ -179,7 +189,7 @@ public static class Glyphs
                 LookupTable.AnymaeFromAttributes(morality - 1, grace, out AtomType NewImmoral);
                 LookupTable.AnymaeFromAttributes(morality + 1, grace, out AtomType NewMoral);
 
-
+                Brimstone.API.PlaySound(sim, Sounds.Polarization);
 
                 Brimstone.API.ChangeAtom(MoralSubject, NewMoral);
                 Brimstone.API.ChangeAtom(ImmoralSubject, NewImmoral);
@@ -209,6 +219,8 @@ public static class Glyphs
             
                 LookupTable.AnymaeFromAttributes(0, grace, out AtomType ImmoralAbsolved);
                 LookupTable.AnymaeFromAttributes(0, grace, out AtomType MoralAbsolved);
+
+                Brimstone.API.PlaySound(sim, Sounds.Absolution);
 
                 Brimstone.API.ChangeAtom(MoralSubject, MoralAbsolved);
                 Brimstone.API.ChangeAtom(ImmoralSubject, ImmoralAbsolved);
@@ -241,7 +253,8 @@ public static class Glyphs
 
                 Brimstone.API.ChangeAtom(PowerSubject, Brimstone.API.VanillaAtoms.salt);
                 Brimstone.API.ChangeAtom(AnymaeSubject, NewAnymae);
-                
+
+                Brimstone.API.PlaySound(sim, Sounds.Empowerment);
             }
         });
     }
