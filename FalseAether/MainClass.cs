@@ -9,6 +9,11 @@ public class MainClass : QuintessentialMod
     public static readonly string PolarizationPermission = "FalseAether:Polarization";
     public static readonly string TrueSightPermission = "FalseAether:TrueSight";
     public static readonly string AbsolutionPermission = "FalseAether:Absolution";
+    public static readonly string OlympusPermission = "FalseAether:Olympus";
+    public static readonly string ReductionPermission = "FalseAether:Reduction";
+    public static readonly string CuringPermission = "FalseAether:Curing";
+    public static readonly string SympathyPermission = "FalseAether:Sympathy";
+    public static readonly string EnchantmentPermission = "FalseAether:Enchantment";
 
     public static string contentPath;
 
@@ -22,6 +27,8 @@ public class MainClass : QuintessentialMod
         Atoms.LoadAtoms();
         Logger.Log(LoggerPrefix + "Charting It Up!");
         LookupTable.setupAlignmentChart();
+        Logger.Log (LoggerPrefix + "There are some loose tweakers we need to wrangle");
+        Glyphs.AddHooks();
         Logger.Log(LoggerPrefix + "Glyph time");
         Glyphs.LoadGlyphs();
         QApi.AddPuzzlePermission(InquisitionPermission, "Glyph of Inquisition", "False Aether: Gracing Anymae");
@@ -29,6 +36,11 @@ public class MainClass : QuintessentialMod
         QApi.AddPuzzlePermission(AbsolutionPermission, "Glyph of Absolution", "False Aether: Gracing Anymae");
         QApi.AddPuzzlePermission(EmpowermentPermission, "Glyph of Empowerment", "False Aether: Gracing Anymae");
         QApi.AddPuzzlePermission(TrueSightPermission, "Glyph of True Sight", "False Aether: Gracing Anymae");
+        QApi.AddPuzzlePermission(CuringPermission, "Glyph of Curing", "False Aether: Gracing Anymae");
+        QApi.AddPuzzlePermission(SympathyPermission, "Glyph of Sympathy", "False Aether: Gracing Anymae");
+        QApi.AddPuzzlePermission(EnchantmentPermission, "Glyph of Enchantment", "False Aether: Heavenlies and Earthlies");
+        QApi.AddPuzzlePermission(OlympusPermission, "Glyph of Olympus", "False Aether: Erepiessence and Ether");
+        QApi.AddPuzzlePermission(ReductionPermission, "Glyph of Reduction", "False Aether: Erepiessence and Ether");
         Logger.Log(LoggerPrefix + "Listening for sounds");
         Sounds.LoadSounds();
     }
@@ -39,6 +51,6 @@ public class MainClass : QuintessentialMod
     }
     
     public override void Unload() {
-    
+        Glyphs.RemoveHooks();
     }
 }
