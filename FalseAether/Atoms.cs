@@ -120,6 +120,16 @@ public static class Atoms
             pathToRimlight: "textures/atoms/erikhaag/FalseAether/erepi_rimlight",
             pathToShadow: "textures/atoms/erikhaag/FalseAether/erepi_shadow"
             );
+        Ether = Brimstone.API.CreateQuintessenceAtom(
+            ID: 247,
+            modName: "FalseAether",
+            name: "Ether",
+            pathToSymbol: "textures/atoms/erikhaag/FalseAether/ether_symbol",
+            pathToColors: "textures/atoms/erikhaag/FalseAether/ether_colors",
+            pathToBase: "textures/atoms/erikhaag/FalseAether/ether_base",
+            pathToRimlight: "textures/atoms/erikhaag/FalseAether/ether_rimlight",
+            pathToShadow: "textures/atoms/erikhaag/FalseAether/ether_shadow"
+            );
         Celest = Brimstone.API.CreateNormalAtom(
             ID: 246,
             modName: "FalseAether",
@@ -147,6 +157,7 @@ public static class Atoms
         QApi.AddAtomType(Soul);
 
         QApi.AddAtomType(Erepiessence);
+        QApi.AddAtomType(Ether);
     }
 
 }
