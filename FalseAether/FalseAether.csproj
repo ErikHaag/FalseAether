@@ -35,6 +35,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Content\textures\atoms\erikhaag\FalseAether\" />
+	  <Folder Include="SymbolSvgs\" />
 	</ItemGroup>
 
 </Project>
