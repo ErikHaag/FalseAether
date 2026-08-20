@@ -26,7 +26,7 @@ public class MainClass : QuintessentialMod
         Logger.Log(LoggerPrefix + "Creating the Grace");
         Atoms.LoadAtoms();
         Logger.Log(LoggerPrefix + "Charting It Up!");
-        LookupTable.setupAlignmentChart();
+        LookupTable.SetupCharts();
         Logger.Log (LoggerPrefix + "There are some loose tweakers we need to wrangle");
         Glyphs.AddHooks();
         Logger.Log(LoggerPrefix + "Glyph time");

@@ -4,7 +4,7 @@ namespace FalseAether;
 public static class Atoms
 {
     public static AtomType Erepiessence, Body, Mind, Soul, Void, Ether;
-    public static AtomType Magis, Daedrum;
+    public static AtomType Magis, Daedrum, Celest;
     public static AtomType Illustra, Inops, Capax, Turpis, Phasmus, Aegero;
 
     public static void LoadAtoms()
@@ -74,13 +74,12 @@ public static class Atoms
             pathToDiffuse: "textures/atoms/erikhaag/FalseAether/phasmus_diffuse",
             pathToShade: "textures/atoms/erikhaag/FalseAether/phasmus_shade"
             );
+
         Body = Brimstone.API.CreateCardinalAtom(
             ID: 241,
             modName: "FalseAether",
             name: "Body",
             pathToBase: "textures/atoms/erikhaag/FalseAether/body_base",
-            pathToFog: "textures/atoms/erikhaag/FalseAether/fog",
-            pathToRim: "textures/atoms/erikhaag/FalseAether/fog",
             pathToSymbol: "textures/atoms/erikhaag/FalseAether/body_symbol",
             pathToShadow: "textures/atoms/erikhaag/FalseAether/body_shadow"
             );
@@ -89,8 +88,6 @@ public static class Atoms
             modName: "FalseAether",
             name: "Mind",
             pathToBase: "textures/atoms/erikhaag/FalseAether/mind_base",
-            pathToFog: "textures/atoms/erikhaag/FalseAether/fog",
-            pathToRim: "textures/atoms/erikhaag/FalseAether/fog",
             pathToSymbol: "textures/atoms/erikhaag/FalseAether/mind_symbol",
             pathToShadow: "textures/atoms/erikhaag/FalseAether/mind_shadow"
             );
@@ -99,8 +96,6 @@ public static class Atoms
             modName: "FalseAether",
             name: "Void",
             pathToBase: "textures/atoms/erikhaag/FalseAether/void_base",
-            pathToFog: "textures/atoms/erikhaag/FalseAether/fog",
-            pathToRim: "textures/atoms/erikhaag/FalseAether/fog",
             pathToSymbol: "textures/atoms/erikhaag/FalseAether/void_symbol",
             pathToShadow: "textures/atoms/erikhaag/FalseAether/void_shadow"
             );
@@ -110,17 +105,28 @@ public static class Atoms
             name: "Soul",
             pathToBase: "textures/atoms/erikhaag/FalseAether/soul_base",
             pathToFog: "textures/atoms/erikhaag/FalseAether/soul_fog",
-            pathToRim: "textures/atoms/erikhaag/FalseAether/soul_base2",
+            pathToBase2: "textures/atoms/erikhaag/FalseAether/soul_base2",
             pathToSymbol: "textures/atoms/erikhaag/FalseAether/soul_symbol",
             pathToShadow: "textures/atoms/erikhaag/FalseAether/soul_shadow"
             );
-        Erepiessence = Brimstone.API.CreateMetalAtom(
+
+        Erepiessence = Brimstone.API.CreateQuintessenceAtom(
             ID: 245,
             modName: "FalseAether",
             name: "Erepiessence",
             pathToSymbol: "textures/atoms/erikhaag/FalseAether/erepi_symbol",
-            pathToLightramp: "textures/atoms/erikhaag/FalseAether/erepitemp_diffuse",
-            pathToRimlight: "textures/atoms/erikhaag/FalseAether/erepi_rimlight"
+            pathToColors: "textures/atoms/erikhaag/FalseAether/erepi_colors",
+            pathToBase: "textures/atoms/erikhaag/FalseAether/erepi_base",
+            pathToRimlight: "textures/atoms/erikhaag/FalseAether/erepi_rimlight",
+            pathToShadow: "textures/atoms/erikhaag/FalseAether/erepi_shadow"
+            );
+        Celest = Brimstone.API.CreateNormalAtom(
+            ID: 246,
+            modName: "FalseAether",
+            name: "Celest",
+            pathToSymbol: "textures/atoms/erikhaag/FalseAether/potash_symbol",
+            pathToDiffuse: "textures/atoms/erikhaag/FalseAether/potash_diffuse",
+            pathToShade: "textures/atoms/erikhaag/FalseAether/potash_shade"
             );
 
 
@@ -132,6 +138,8 @@ public static class Atoms
         QApi.AddAtomType(Aegero);
         QApi.AddAtomType(Turpis);
         QApi.AddAtomType(Phasmus);
+        
+        QApi.AddAtomType(Celest);
 
         QApi.AddAtomType(Body);
         QApi.AddAtomType(Void);

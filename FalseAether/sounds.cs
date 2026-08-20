@@ -16,6 +16,7 @@ namespace FalseAether
         public static Sound Curing;
         public static Sound Empowerment;
         public static Sound Enchantment;
+        public static Sound EnchantmentPotash;
         public static Sound Inquisition;
         public static Sound Olympus;
         public static Sound Polarization;
@@ -28,6 +29,7 @@ namespace FalseAether
             Curing = Brimstone.API.GetSound(MainClass.contentPath, "sounds/curing").method_1087();
             Empowerment = Brimstone.API.GetSound(MainClass.contentPath, "sounds/empowerment").method_1087();
             Enchantment = Brimstone.API.GetSound(MainClass.contentPath, "sounds/enchantment").method_1087();
+            EnchantmentPotash = Brimstone.API.GetSound(MainClass.contentPath, "sounds/enchantment_potash").method_1087();
             Inquisition = Brimstone.API.GetSound(MainClass.contentPath, "sounds/inquisition").method_1087();
             Olympus = Brimstone.API.GetSound(MainClass.contentPath, "sounds/olympus").method_1087();
             Polarization = Brimstone.API.GetSound(MainClass.contentPath, "sounds/polarization").method_1087();
@@ -38,7 +40,7 @@ namespace FalseAether
             FieldInfo field = typeof(class_11).GetField("field_52", BindingFlags.Static | BindingFlags.NonPublic);
             Dictionary<string, float> volumeDictionary = (Dictionary<string, float>)field.GetValue(null);
 
-            volumeDictionary.Add("absolution", 0.5f);
+            volumeDictionary.Add("absolution", 0.3f);
             volumeDictionary.Add("empowerment", 0.3f);
             volumeDictionary.Add("inquisition", 0.3f);
             volumeDictionary.Add("polarization", 0.3f);
@@ -47,6 +49,7 @@ namespace FalseAether
             volumeDictionary.Add("olympus", 0.3f);
             volumeDictionary.Add("reduction", 0.3f);
             volumeDictionary.Add("enchantment", 0.3f);
+            volumeDictionary.Add("enchantment_potash", 0.3f);
             
 
             On.class_201.method_540 += Sounds.Method_540;
@@ -66,6 +69,7 @@ namespace FalseAether
             Polarization.field_4062 = false;
             Curing.field_4062 = false;
             Enchantment.field_4062 = false;
+            EnchantmentPotash.field_4062 = false;
             Olympus.field_4062 = false;
             Reduction.field_4062 = false;
             Sympathy.field_4062 = false;

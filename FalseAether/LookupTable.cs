@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,17 @@ namespace FalseAether
 {
     internal static class LookupTable
     {
+        internal struct CardinalPair
+        {
+            public AtomType Earthly;
+            public AtomType Heavenly;
+
+            public CardinalPair(AtomType earthly, AtomType heavenly)
+            {
+                Earthly = earthly;
+                Heavenly = heavenly;
+            }
+        }
         internal struct Anymae
         {
             public AtomType Alignment;
@@ -25,7 +37,9 @@ namespace FalseAether
         }
         
         internal static List<Anymae> AlignmentChart = new List<Anymae>();
-        public static void setupAlignmentChart()
+        internal static List<CardinalPair> CardinalChart = new List<CardinalPair>();
+
+        public static void SetupCharts()
         {
             /*
                                        ^
@@ -45,6 +59,12 @@ namespace FalseAether
                                 AlignmentChart.Add(new Anymae(Atoms.Inops, -1, 1));
             AlignmentChart.Add(new Anymae(Brimstone.API.VanillaAtoms.mors, -1, 0));
                                AlignmentChart.Add(new Anymae(Atoms.Aegero, -1,-1));
+
+            CardinalChart.Add(new CardinalPair(Brimstone.API.VanillaAtoms.fire, Atoms.Void));
+            CardinalChart.Add(new CardinalPair(Brimstone.API.VanillaAtoms.earth, Atoms.Body));
+            CardinalChart.Add(new CardinalPair(Brimstone.API.VanillaAtoms.water, Atoms.Mind));
+            CardinalChart.Add(new CardinalPair(Brimstone.API.VanillaAtoms.air, Atoms.Soul));
+
         }
 
         public static bool AnymaeFromAttributes(int morality, int grace, out AtomType anymae)
@@ -77,6 +97,27 @@ namespace FalseAether
                     return true;
                 }
 
+            }
+            return false;
+        }
+
+        public static bool SwapCardinalPairing(AtomType cardinal, out AtomType cardinalSwapped, out bool isHeavenly)
+        {
+            cardinalSwapped = default;
+            isHeavenly = false;
+            foreach (var pairing in CardinalChart)
+            {
+                if (pairing.Earthly == cardinal)
+                {
+                    cardinalSwapped = pairing.Heavenly;
+                    return true;
+                }
+                if (pairing.Heavenly == cardinal)
+                {
+                    cardinalSwapped = pairing.Earthly;
+                    isHeavenly = true;
+                    return true;
+                }
             }
             return false;
         }

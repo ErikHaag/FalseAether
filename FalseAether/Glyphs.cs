@@ -6,6 +6,7 @@ using MonoMod.Utils;
 using Quintessential;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -158,7 +159,7 @@ public static class Glyphs
 
             ID: "FalseAether-Curing",
             name: "Glyph of Curing",
-            description: "The glyph of curing sacrifices a pair of magis or daedrum to reduce any non-neutral anymae to salt.",
+            description: "The glyph of curing sacrifices a pair of potash to reduce any non-neutral anymae to salt.",
             cost: 10,
             glow: Textures.Select.CuringGlow,
             stroke: Textures.Select.CuringStroke,
@@ -175,9 +176,9 @@ public static class Glyphs
             renderer.method_528(Textures.SharedTextures.BasicBowl, CuringBowl, Vector2.Zero);
             renderer.method_529(Textures.SharedTextures.PolarEngraving, CuringBowl, Vector2.Zero);
             renderer.method_528(Textures.SharedTextures.BasicHole, CuringHole1, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.PowerGlow, CuringHole1, Vector2.Zero);
+            renderer.method_529(Textures.SharedTextures.PotashGlow, CuringHole1, Vector2.Zero);
             renderer.method_528(Textures.SharedTextures.BasicHole, CuringHole2, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.PowerGlow, CuringHole2, Vector2.Zero);
+            renderer.method_529(Textures.SharedTextures.PotashGlow, CuringHole2, Vector2.Zero);
             // renderer.method_529(Textures.Inquisition.MagisBowl, InquisitionMagisBowl, Vector2.Zero);
             // renderer.method_529(Textures.Inquisition.DaedrumBowl, InquisitionDaedrumBowl, Vector2.Zero);
         });
@@ -232,6 +233,7 @@ public static class Glyphs
         QApi.AddPartTypeToPanel(Olympus, false);
         QApi.AddPartType(Olympus, static (part, pos, editor, renderer) =>
         {
+            Brimstone.API.GetRenderingHelpers(part, pos, editor, out var pss, out var partDataWrapper, out var time);
             Vector2 pivot = new Vector2(123, 190);
             Vector2 offset = new(-1, -1);
             renderer.method_523(Textures.Olympus.Base, offset, pivot, 0);
@@ -259,8 +261,8 @@ public static class Glyphs
             renderer.method_529(Textures.Olympus.Soul, OlympusIn4, Vector2.Zero);
             renderer.method_529(Textures.Olympus.Void, OlympusIn4, Vector2.Zero);
             renderer.method_529(Textures.SharedTextures.DividerGlow, OlympusIn4, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.BasicIris, OlympusOut, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.ErepiEngraving, OlympusOut, Vector2.Zero);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, OlympusOut, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
+
             // renderer.method_529(Textures.Inquisition.DaedrumBowl, InquisitionDaedrumBowl, Vector2.Zero);
         });
         Reduction = Brimstone.API.CreateSimpleGlyph(
@@ -273,22 +275,23 @@ public static class Glyphs
             stroke: Textures.Select.EdispStroke,
             icon: Textures.Icons.Reduction,
             hoveredIcon: Textures.Icons.ReductionHovered,
-            usedHexes: new HexIndex[] { ReductionOut1, ReductionOut2, ReductionIn, ReductionOut3, ReductionOut4},
+            usedHexes: new HexIndex[] { ReductionOut1, ReductionOut2, ReductionIn, ReductionOut3, ReductionOut4 },
             customPermission: MainClass.ReductionPermission
             );
         QApi.AddPartTypeToPanel(Reduction, false);
         QApi.AddPartType(Reduction, static (part, pos, editor, renderer) =>
         {
+            Brimstone.API.GetRenderingHelpers(part, pos, editor, out var pss, out var partDataWrapper, out var time);
             Vector2 pivot = new Vector2(164, 119);
             Vector2 offset = new(-1, -1);
             renderer.method_523(Textures.Reduction.Base, offset, pivot, 0);
-            renderer.method_529(Textures.SharedTextures.BasicIris, ReductionOut4, Vector2.Zero);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionOut4, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[3]) : struct_18.field_1431);
             renderer.method_529(Textures.Reduction.VoidGlow, ReductionOut4, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.BasicIris, ReductionOut3, Vector2.Zero);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionOut3, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[2]) : struct_18.field_1431);
             renderer.method_529(Textures.Reduction.SoulGlow, ReductionOut3, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.BasicIris, ReductionOut2, Vector2.Zero);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionOut2, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[1]) : struct_18.field_1431);
             renderer.method_529(Textures.Reduction.SoulGlow, ReductionOut2, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.BasicIris, ReductionOut1, Vector2.Zero);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionOut1, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
             renderer.method_529(Textures.Reduction.BodyGlow, ReductionOut1, Vector2.Zero);
             renderer.method_528(Textures.SharedTextures.BasicHole, ReductionIn, Vector2.Zero);
             renderer.method_528(Textures.SharedTextures.ErepiGlow, ReductionIn, Vector2.Zero);
@@ -400,7 +403,7 @@ public static class Glyphs
 
             ID: "FalseAether-Enchantment",
             name: "Glyph of Enchantment",
-            description: "The glyph of enchantment uses two matching earthly cardinals to produce one corresponding heavenly cardinal.",
+            description: "The glyph of enchantment uses two matching earthly cardinals or salt to produce one corresponding heavenly cardinal or two potash.",
             cost: 20,
             glow: Textures.Select.LineGlow,
             stroke: Textures.Select.LineStroke,
@@ -416,7 +419,6 @@ public static class Glyphs
             renderer.method_523(Textures.Enchantment.Base, new Vector2(0f, -1f), pivot, 0);
             renderer.method_528(Textures.SharedTextures.BasicHole, EnchantmentInCard, Vector2.Zero);
             renderer.method_529(Textures.SharedTextures.CardinalsGlow, EnchantmentInCard, Vector2.Zero);
-            //renderer.method_529(Textures.Empowerment.SaltSymbol, EmpowermentAnymaeBowl, Vector2.Zero);
             renderer.method_528(Textures.SharedTextures.BasicBowl, EnchantmentCardHost, Vector2.Zero);
             renderer.method_529(Textures.SharedTextures.CardinalsEngraved, EnchantmentCardHost, Vector2.Zero);
             renderer.method_528(Textures.Enchantment.CrazyIris, EnchantmentHeavOut, Vector2.Zero);
@@ -425,7 +427,6 @@ public static class Glyphs
             renderer.method_529(Textures.Olympus.Soul, EnchantmentHeavOut, Vector2.Zero);
             renderer.method_529(Textures.Olympus.Void, EnchantmentHeavOut, Vector2.Zero);
             renderer.method_529(Textures.SharedTextures.DividerEngraving, EnchantmentHeavOut, Vector2.Zero);
-            //renderer.method_529(Textures.Empowerment.PowerSymbol, EmpowermentPowerBowl, Vector2.Zero);
         });
 
         /*
@@ -444,6 +445,7 @@ public static class Glyphs
         {
             SolutionEditorBase seb = sim.field_3818;
             PartType type = part.method_1159();
+            AtomType Salt = Brimstone.API.VanillaAtoms.salt;
             if (type == Inquisition)
             {
                 if (!(sim.FindAtomRelative(part, InquisitionMagisBowl).method_99(out AtomReference MagisSubject) && sim.FindAtomRelative(part, InquisitionDaedrumBowl).method_99(out AtomReference DaedrumSubject)))
@@ -454,6 +456,24 @@ public static class Glyphs
                 {
                     return;
                 }
+                MagisSubject.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        MagisSubject.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
+                DaedrumSubject.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        DaedrumSubject.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
                 Brimstone.API.ChangeAtom(MagisSubject, Atoms.Magis);
                 Brimstone.API.ChangeAtom(DaedrumSubject, Atoms.Daedrum);
 
@@ -462,69 +482,104 @@ public static class Glyphs
 
             else if (type == Curing)
             {
-                if (first)
-                {
-                    if (!(sim.FindAtomRelative(part, CuringBowl).method_99(out AtomReference TBCured) && sim.FindAtomRelative(part, CuringHole1).method_99(out AtomReference Sac1) && sim.FindAtomRelative(part, CuringHole2).method_99(out AtomReference Sac2)))
-                    {
-                        return;
-                    }
-                    if (!(Sac1.field_2280 == Sac2.field_2280) && (!(Sac1.field_2280 == Atoms.Magis) || !(Sac1.field_2280 == Atoms.Daedrum)))
-                    {
-                        return;
-                    }
-                    if (!LookupTable.AttributesFromAnymae(TBCured.field_2280, out int morality, out int grace))
-                    {
-                        return;
-                    }
-                    if (morality == 0 && grace == 0)
-                    {
-                        return;
-                    }
-                    Brimstone.API.RemoveAtom(Sac1);
-                    Brimstone.API.RemoveAtom(Sac2);
-                    Brimstone.API.DrawFallingAtom(seb, Sac1);
-                    Brimstone.API.DrawFallingAtom(seb, Sac2);
 
-                    Brimstone.API.ChangeAtom(TBCured, Brimstone.API.VanillaAtoms.salt);
-                    Brimstone.API.PlaySound(sim, Sounds.Curing);
+                if (!(sim.FindAtomRelative(part, CuringBowl).method_99(out AtomReference TBCured) && sim.FindAtomRelative(part, CuringHole1).method_99(out AtomReference Sac1) && sim.FindAtomRelative(part, CuringHole2).method_99(out AtomReference Sac2)))
+                {
+                    return;
                 }
-                
+                if (Sac1.field_2281 || Sac1.field_2282)
+                {
+                    return;
+                }
+                if (Sac2.field_2281 || Sac2.field_2282)
+                {
+                    return;
+                }
+                if (!(Sac1.field_2280 == Sac2.field_2280) || (!(Sac1.field_2280 == Atoms.Celest)))
+                {
+                    return;
+                }
+                if (!LookupTable.AttributesFromAnymae(TBCured.field_2280, out int morality, out int grace))
+                {
+                    return;
+                }
+                if (morality == 0 && grace == 0)
+                {
+                    return;
+                }
+                Brimstone.API.RemoveAtom(Sac1);
+                Brimstone.API.RemoveAtom(Sac2);
+                Brimstone.API.DrawFallingAtom(seb, Sac1);
+                Brimstone.API.DrawFallingAtom(seb, Sac2);
+
+                Brimstone.API.ChangeAtom(TBCured, Brimstone.API.VanillaAtoms.salt);
+                Brimstone.API.PlaySound(sim, Sounds.Curing);
+
+                TBCured.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        TBCured.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
 
             }
             else if (type == Sympathy)
             {
-                if (first)
+
+
+                if (!(sim.FindAtomRelative(part, SympathyBowl).method_99(out AtomReference SympSubject) && sim.FindAtomRelative(part, SympathyHole1).method_99(out AtomReference Sac1) && sim.FindAtomRelative(part, SympathyHole2).method_99(out AtomReference Sac2) && sim.FindAtomRelative(part, SympathyHole3).method_99(out AtomReference Sac3)))
                 {
-                    if (!(sim.FindAtomRelative(part, SympathyBowl).method_99(out AtomReference SympSubject) && sim.FindAtomRelative(part, SympathyHole1).method_99(out AtomReference Sac1) && sim.FindAtomRelative(part, SympathyHole2).method_99(out AtomReference Sac2) && sim.FindAtomRelative(part, SympathyHole3).method_99(out AtomReference Sac3)))
-                    {
-                        return;
-                    }
-                    if (!(Sac1.field_2280 == Sac2.field_2280) && !(Sac1.field_2280 == Sac3.field_2280) && !(Sac1.field_2280 == Brimstone.API.VanillaAtoms.salt))
-                    {
-                        return;
-                    }
-                    if (!LookupTable.AttributesFromAnymae(SympSubject.field_2280, out int morality, out int grace))
-                    {
-                        return;
-                    }
-                    if (morality == 0)
-                    {
-                        return;
-                    }
-                    Brimstone.API.RemoveAtom(Sac1);
-                    Brimstone.API.RemoveAtom(Sac2);
-                    Brimstone.API.RemoveAtom(Sac3);
-                    Brimstone.API.DrawFallingAtom(seb, Sac1);
-                    Brimstone.API.DrawFallingAtom(seb, Sac2);
-                    Brimstone.API.DrawFallingAtom(seb, Sac3);
-
-                    LookupTable.AnymaeFromAttributes(morality * -1, grace, out AtomType NewMorality);
-
-                    Brimstone.API.ChangeAtom(SympSubject, NewMorality);
-                    Brimstone.API.PlaySound(sim, Sounds.Sympathy);
-
+                    return;
                 }
-                
+                if (Sac1.field_2281 || Sac1.field_2282)
+                {
+                    return;
+                }
+                if (Sac2.field_2281 || Sac2.field_2282)
+                {
+                    return;
+                }
+                if (Sac3.field_2281 || Sac3.field_2282)
+                {
+                    return;
+                }
+                if (!(Sac1.field_2280 == Sac2.field_2280) && !(Sac1.field_2280 == Sac3.field_2280) && !(Sac1.field_2280 == Brimstone.API.VanillaAtoms.salt))
+                {
+                    return;
+                }
+                if (!LookupTable.AttributesFromAnymae(SympSubject.field_2280, out int morality, out int grace))
+                {
+                    return;
+                }
+                if (morality == 0)
+                {
+                    return;
+                }
+                Brimstone.API.RemoveAtom(Sac1);
+                Brimstone.API.RemoveAtom(Sac2);
+                Brimstone.API.RemoveAtom(Sac3);
+                Brimstone.API.DrawFallingAtom(seb, Sac1);
+                Brimstone.API.DrawFallingAtom(seb, Sac2);
+                Brimstone.API.DrawFallingAtom(seb, Sac3);
+
+                LookupTable.AnymaeFromAttributes(morality * -1, grace, out AtomType NewMorality);
+
+                Brimstone.API.ChangeAtom(SympSubject, NewMorality);
+                Brimstone.API.PlaySound(sim, Sounds.Sympathy);
+
+                SympSubject.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        SympSubject.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
+
 
             }
 
@@ -553,73 +608,118 @@ public static class Glyphs
 
                 Brimstone.API.ChangeAtom(MoralSubject, NewMoral);
                 Brimstone.API.ChangeAtom(ImmoralSubject, NewImmoral);
+
+                ImmoralSubject.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        ImmoralSubject.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
+                MoralSubject.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        MoralSubject.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
             }
 
             else if (type == Enchantment)
             {
-                if (first)
+
+
+                bool madePotash = false;
+                if ((sim.FindAtomRelative(part, EnchantmentHeavOut).method_1085()))
                 {
-                    if ((sim.FindAtomRelative(part, EnchantmentHeavOut).method_1085()))
-                    {
-                        return;
-                    }
-                    if (!(sim.FindAtomRelative(part, EnchantmentInCard).method_99(out AtomReference Intake) && sim.FindAtomRelative(part, EnchantmentCardHost).method_99(out AtomReference Host)))
-                    {
-                        return;
-                    }
-                    
-                    if (!(Intake.field_2280 == Host.field_2280))
-                    {
-                        return;
-                    }
-                    if (Intake.field_2280 == Brimstone.API.VanillaAtoms.fire)
-                    {
-                        Brimstone.API.RemoveAtom(Intake);
-                        Brimstone.API.DrawFallingAtom(seb, Intake);
-
-                        pss.field_2743 = true;
-                        pss.field_2744 = new AtomType[] { Atoms.Void };
-                        Brimstone.API.ChangeAtom(Host, Brimstone.API.VanillaAtoms.salt);
-                    }
-                    else if (Intake.field_2280 == Brimstone.API.VanillaAtoms.earth)
-                    {
-                        Brimstone.API.RemoveAtom(Intake);
-                        Brimstone.API.DrawFallingAtom(seb, Intake);
-
-                        pss.field_2743 = true;
-                        pss.field_2744 = new AtomType[] { Atoms.Body };
-                        Brimstone.API.ChangeAtom(Host, Brimstone.API.VanillaAtoms.salt);
-                    }
-                    else if (Intake.field_2280 == Brimstone.API.VanillaAtoms.water)
-                    {
-                        Brimstone.API.RemoveAtom(Intake);
-                        Brimstone.API.DrawFallingAtom(seb, Intake);
-
-                        pss.field_2743 = true;
-                        pss.field_2744 = new AtomType[] { Atoms.Mind };
-                        Brimstone.API.ChangeAtom(Host, Brimstone.API.VanillaAtoms.salt);
-                    }
-                    else if (Intake.field_2280 == Brimstone.API.VanillaAtoms.air)
-                    {
-                        Brimstone.API.RemoveAtom(Intake);
-                        Brimstone.API.DrawFallingAtom(seb, Intake);
-
-                        pss.field_2743 = true;
-                        pss.field_2744 = new AtomType[] { Atoms.Soul };
-                        
-                        Brimstone.API.ChangeAtom(Host, Brimstone.API.VanillaAtoms.salt);
-                    }
-                    else
-                    {
-                        return;
-                    }
-                    Brimstone.API.PlaySound(sim, Sounds.Enchantment);
+                    return;
                 }
-                else if (pss.field_2743)
+                if (!(sim.FindAtomRelative(part, EnchantmentInCard).method_99(out AtomReference Intake) && sim.FindAtomRelative(part, EnchantmentCardHost).method_99(out AtomReference Host)))
                 {
-                    
-                    Brimstone.API.AddAtom(sim, part, EnchantmentHeavOut, pss.field_2744[0]);
+                    return;
                 }
+                if (Intake.field_2281 || Intake.field_2282)
+                {
+                    return;
+                }
+                if (!(Intake.field_2280 == Host.field_2280))
+                {
+                    return;
+                }
+
+                AtomType SwappedCardinal = default;
+
+                if (Intake.field_2280 == Salt)
+                {
+                    SwappedCardinal = Atoms.Celest;
+                    madePotash = true;
+                }
+
+                else if ((!LookupTable.SwapCardinalPairing(Intake.field_2280, out SwappedCardinal, out bool isHeavenly)) || isHeavenly)
+                {
+                    return;
+                }
+
+                Brimstone.API.RemoveAtom(Intake);
+                Brimstone.API.DrawFallingAtom(seb, Intake);
+
+                pss.field_2743 = true;
+                Brimstone.API.AddAtom(sim, part, EnchantmentHeavOut, SwappedCardinal);
+                Host.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        Host.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
+
+
+                seb.field_3936.Add(new class_228
+                        (
+                            seb,
+                            (enum_7)1,
+                            Brimstone.API.HexIndexToVector2(part.method_1184(EnchantmentHeavOut)) + new Vector2(80, 0),
+                            class_238.field_1989.field_90.field_240,
+                            30,
+                            Vector2.Zero,
+                            0
+                        )
+                    );
+                if (madePotash)
+                {
+                    foreach (var offset in new HexIndex[] { EnchantmentHeavOut, EnchantmentCardHost })
+                    {
+                        seb.field_3935.Add(new class_228
+                            (
+                                seb,
+                                (enum_7)1,
+                                Brimstone.API.HexIndexToVector2(part.method_1184(offset)) + new Vector2(147, 47),
+                                class_238.field_1989.field_90.field_242,
+                                30,
+                                Vector2.Zero,
+                                0
+                            )
+                        );
+                    }
+                }
+
+
+
+
+                Brimstone.API.ChangeAtom(Host, !madePotash ? Salt : Atoms.Celest);
+                Brimstone.API.PlaySound(sim, !madePotash ? Sounds.Enchantment : Sounds.EnchantmentPotash);
+
+
+
+
+
+
             }
 
             else if (type == Reduction)
@@ -631,6 +731,10 @@ public static class Glyphs
                         return;
                     }
                     if (!(sim.FindAtomRelative(part, ReductionIn).method_99(out AtomReference Intake)))
+                    {
+                        return;
+                    }
+                    if (Intake.field_2281 || Intake.field_2282)
                     {
                         return;
                     }
@@ -649,7 +753,7 @@ public static class Glyphs
                 }
                 else if (pss.field_2743)
                 {
-                    
+
                     Brimstone.API.AddAtom(sim, part, ReductionOut1, pss.field_2744[0]);
                     Brimstone.API.AddAtom(sim, part, ReductionOut2, pss.field_2744[1]);
                     Brimstone.API.AddAtom(sim, part, ReductionOut3, pss.field_2744[2]);
@@ -659,7 +763,7 @@ public static class Glyphs
 
             else if (type == Olympus)
             {
-                if (first) 
+                if (first)
                 {
                     if ((sim.FindAtomRelative(part, OlympusOut).method_1085()))
                     {
@@ -726,9 +830,9 @@ public static class Glyphs
 
                 else if (pss.field_2743)
                 {
-                    
+
                     Brimstone.API.AddAtom(sim, part, OlympusOut, pss.field_2744[0]);
-                }                
+                }
             }
 
             else if (type == Absolution)
@@ -761,6 +865,25 @@ public static class Glyphs
 
                 Brimstone.API.ChangeAtom(MoralSubject, MoralAbsolved);
                 Brimstone.API.ChangeAtom(ImmoralSubject, ImmoralAbsolved);
+
+                ImmoralSubject.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        ImmoralSubject.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
+                MoralSubject.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        MoralSubject.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
             }
             else if (type == Empowerment)
             {
@@ -792,6 +915,25 @@ public static class Glyphs
                 Brimstone.API.ChangeAtom(AnymaeSubject, NewAnymae);
 
                 Brimstone.API.PlaySound(sim, Sounds.Empowerment);
+
+                AnymaeSubject.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        AnymaeSubject.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
+                PowerSubject.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        PowerSubject.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
             }
         });
     }

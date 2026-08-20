@@ -72,6 +72,7 @@ public static class Textures
         public static Texture DividerGlow = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/symbol_divider");
         public static Texture CardinalsGlow = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/cardinals_glow");
         public static Texture CardinalsEngraved = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/cardinals_engraved");
+        public static Texture PotashGlow = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/potash_symbol");
 
     }
 
