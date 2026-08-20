@@ -40,8 +40,8 @@ public static class Textures
         public static Texture LineGlow = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/line_glow");
         public static Texture LineStroke = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/line_stroke");
 
-        public static Texture SingleGlow = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/single_glow");
-        public static Texture SingleStroke = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/single_stroke");
+        public static Texture SingleGlow = class_238.field_1989.field_97.field_382;
+        public static Texture SingleStroke = class_238.field_1989.field_97.field_383;
 
         public static Texture EuniGlow = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/EUni/glow");
         public static Texture EuniStroke = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/EUni/stroke");
@@ -58,9 +58,8 @@ public static class Textures
 
     public static class SharedTextures 
     {
-        public static Texture BasicBowl = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/basic_bowl");
+        public static Texture BasicBowl = class_238.field_1989.field_90.field_170;
         public static Texture BasicHole = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/basic_hole");
-        public static Texture BasicIris = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/basic_iris");
         public static Texture SaltGlow = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/glow_salt");
         public static Texture PolarEngraving = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/polar_anymae");
         public static Texture PowerGlow = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/power_glow");
@@ -71,8 +70,8 @@ public static class Textures
         public static Texture DividerEngraving = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/engraved_divider");
         public static Texture DividerGlow = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/symbol_divider");
         public static Texture CardinalsGlow = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/cardinals_glow");
-        public static Texture CardinalsEngraved = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/cardinals_engraved");
-        public static Texture PotashGlow = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/potash_symbol");
+        public static Texture CardinalsEngraved = class_238.field_1989.field_90.field_171;
+        public static Texture CelestGlow = Brimstone.API.GetTexture("textures/parts/erikhaag/FalseAether/celest_symbol");
 
     }
 

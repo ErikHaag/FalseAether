@@ -23,13 +23,13 @@ public class MainClass : QuintessentialMod
     
     public override void LoadPuzzleContent() {
         contentPath = Brimstone.API.GetContentPath("FalseAether").method_1087();
-        Logger.Log(LoggerPrefix + "Creating the Grace");
+        Logger.Log(LoggerPrefix + "Creating atoms.");
         Atoms.LoadAtoms();
-        Logger.Log(LoggerPrefix + "Charting It Up!");
+        Logger.Log(LoggerPrefix + "Generating lookup tables.");
         LookupTable.SetupCharts();
-        Logger.Log (LoggerPrefix + "There are some loose tweakers we need to wrangle");
+        Logger.Log (LoggerPrefix + "Hooking");
         Glyphs.AddHooks();
-        Logger.Log(LoggerPrefix + "Glyph time");
+        Logger.Log(LoggerPrefix + "Loading glyphs.");
         Glyphs.LoadGlyphs();
         QApi.AddPuzzlePermission(InquisitionPermission, "Glyph of Inquisition", "False Aether: Gracing Anymae");
         QApi.AddPuzzlePermission(PolarizationPermission, "Glyph of Polarization", "False Aether: Gracing Anymae");
@@ -41,8 +41,9 @@ public class MainClass : QuintessentialMod
         QApi.AddPuzzlePermission(EnchantmentPermission, "Glyph of Enchantment", "False Aether: Heavenlies and Earthlies");
         QApi.AddPuzzlePermission(OlympusPermission, "Glyph of Olympus", "False Aether: Erepiessence and Ether");
         QApi.AddPuzzlePermission(ReductionPermission, "Glyph of Reduction", "False Aether: Erepiessence and Ether");
-        Logger.Log(LoggerPrefix + "Listening for sounds");
+        Logger.Log(LoggerPrefix + "Loading sounds.");
         Sounds.LoadSounds();
+        Logger.Log(LoggerPrefix + "Done.");
     }
     
     public override void PostLoad()
@@ -51,6 +52,8 @@ public class MainClass : QuintessentialMod
     }
     
     public override void Unload() {
+        Logger.Log(LoggerPrefix + "Unhooking");
+        Sounds.Unload();
         Glyphs.RemoveHooks();
     }
 }

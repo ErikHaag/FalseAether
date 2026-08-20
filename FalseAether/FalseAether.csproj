@@ -6,11 +6,17 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<!--
+		<OpusPath>C:\Program Files (x86)\Steam\steamapps\common\Opus Magnum Old</OpusPath>
+		-->
 		<OpusPath>C:\Program Files (x86)\Steam\steamapps\common\Opus Magnum</OpusPath>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Reference Include="Brimstone">
+			<!--
+			<HintPath>$(OpusPath)\Mods\Brimstone\Brimstone.dll</HintPath>
+			-->
 			<HintPath>$(OpusPath)\UnpackedMods\Brimstone_2.3.0\Brimstone.dll</HintPath>
 		</Reference>
 		<Reference Include="MMHOOK_ModdedLightning">
@@ -34,7 +40,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Content\textures\atoms\erikhaag\FalseAether\" />
 	  <Folder Include="SymbolSvgs\" />
 	</ItemGroup>
 

@@ -134,9 +134,9 @@ public static class Atoms
             ID: 246,
             modName: "FalseAether",
             name: "Celest",
-            pathToSymbol: "textures/atoms/erikhaag/FalseAether/potash_symbol",
-            pathToDiffuse: "textures/atoms/erikhaag/FalseAether/potash_diffuse",
-            pathToShade: "textures/atoms/erikhaag/FalseAether/potash_shade"
+            pathToSymbol: "textures/atoms/erikhaag/FalseAether/celest_symbol",
+            pathToDiffuse: "textures/atoms/erikhaag/FalseAether/celest_diffuse",
+            pathToShade: "textures/atoms/erikhaag/FalseAether/celest_shade"
             );
 
 
