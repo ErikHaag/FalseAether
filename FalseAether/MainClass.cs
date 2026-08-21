@@ -26,7 +26,7 @@ public class MainClass : QuintessentialMod
         Logger.Log(LoggerPrefix + "Creating atoms.");
         Atoms.LoadAtoms();
         Logger.Log(LoggerPrefix + "Generating lookup tables.");
-        LookupTable.SetupCharts();
+        LookupTables.SetupCharts();
         Logger.Log (LoggerPrefix + "Hooking");
         Glyphs.AddHooks();
         Logger.Log(LoggerPrefix + "Loading glyphs.");

@@ -104,11 +104,11 @@ public static class Glyphs
     public static readonly HexIndex[] OlympusInputs = new HexIndex[] { OlympusIn1, OlympusIn2, OlympusIn3, OlympusIn4 };
 
     public static PartType Reduction;
-    public static readonly HexIndex ReductionOut1 = new(0, 1);
-    public static readonly HexIndex ReductionOut2 = new(1, 1);
+    public static readonly HexIndex ReductionBodyOut = new(0, 1);
+    public static readonly HexIndex ReductionMindOut = new(1, 1);
     public static readonly HexIndex ReductionIn = new(0, 0);
-    public static readonly HexIndex ReductionOut3 = new(1, -1);
-    public static readonly HexIndex ReductionOut4 = new(2, -1);
+    public static readonly HexIndex ReductionSoulOut = new(1, -1);
+    public static readonly HexIndex ReductionVoidOut = new(2, -1);
 
     public static PartType Empowerment;
     public static readonly HexIndex EmpowermentAnymaeBowl = new(-1, 0);
@@ -180,7 +180,7 @@ public static class Glyphs
 
             ID: "FalseAether-Sympathy",
             name: "Glyph of Sympathy",
-            description: "The glyph of sympathy sacrifices three salt to reverse any non-neutral anymae's morality without affecting their grace.",
+            description: "The glyph of sympathy sacrifices three celest to reverse any non-neutral anymae's morality without affecting their grace.",
             cost: 50,
             glow: Textures.Select.SympathyGlow,
             stroke: Textures.Select.SympathyStroke,
@@ -240,7 +240,7 @@ public static class Glyphs
                 renderer.method_529(Textures.Olympus.Void, hole, Vector2.Zero);
                 renderer.method_529(Textures.SharedTextures.DividerGlow, hole, Vector2.Zero);
             }
-            Brimstone.API.DrawIris(renderer, partDataWrapper, OlympusOut, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, OlympusOut, time, Textures.Irises.Erepiessence, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
 
             // renderer.method_529(Textures.Inquisition.DaedrumBowl, InquisitionDaedrumBowl, Vector2.Zero);
         });
@@ -254,7 +254,7 @@ public static class Glyphs
             stroke: Textures.Select.EdispStroke,
             icon: Textures.Icons.Reduction,
             hoveredIcon: Textures.Icons.ReductionHovered,
-            usedHexes: new HexIndex[] { ReductionOut1, ReductionOut2, ReductionIn, ReductionOut3, ReductionOut4 },
+            usedHexes: new HexIndex[] { ReductionBodyOut, ReductionMindOut, ReductionIn, ReductionSoulOut, ReductionVoidOut },
             customPermission: MainClass.ReductionPermission
             );
         QApi.AddPartTypeToPanel(Reduction, false);
@@ -264,14 +264,10 @@ public static class Glyphs
             Vector2 pivot = new(164, 119);
             Vector2 offset = new(-1, -1);
             renderer.method_523(Textures.Reduction.Base, offset, pivot, 0);
-            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionOut4, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[3]) : struct_18.field_1431);
-            renderer.method_529(Textures.Reduction.VoidGlow, ReductionOut4, Vector2.Zero);
-            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionOut3, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[2]) : struct_18.field_1431);
-            renderer.method_529(Textures.Reduction.SoulGlow, ReductionOut3, Vector2.Zero);
-            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionOut2, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[1]) : struct_18.field_1431);
-            renderer.method_529(Textures.Reduction.SoulGlow, ReductionOut2, Vector2.Zero);
-            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionOut1, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
-            renderer.method_529(Textures.Reduction.BodyGlow, ReductionOut1, Vector2.Zero);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionBodyOut, time, Textures.Irises.Body, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionMindOut, time, Textures.Irises.Mind, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[1]) : struct_18.field_1431);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionSoulOut, time, Textures.Irises.Soul, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[2]) : struct_18.field_1431);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionVoidOut, time, Textures.Irises.Void, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[3]) : struct_18.field_1431);
             renderer.method_528(Textures.SharedTextures.BasicHole, ReductionIn, Vector2.Zero);
             renderer.method_528(Textures.SharedTextures.ErepiGlow, ReductionIn, Vector2.Zero);
         });
@@ -478,7 +474,7 @@ public static class Glyphs
                 {
                     return;
                 }
-                if (!LookupTable.AttributesFromAnymae(TBCured.field_2280, out int morality, out int grace))
+                if (!LookupTables.AttributesFromAnymae(TBCured.field_2280, out int morality, out int grace))
                 {
                     return;
                 }
@@ -529,7 +525,7 @@ public static class Glyphs
                 {
                     return;
                 }
-                if (!LookupTable.AttributesFromAnymae(SympSubject.field_2280, out int morality, out int grace))
+                if (!LookupTables.AttributesFromAnymae(SympSubject.field_2280, out int morality, out int grace))
                 {
                     return;
                 }
@@ -544,7 +540,7 @@ public static class Glyphs
                 Brimstone.API.DrawFallingAtom(seb, Sac2);
                 Brimstone.API.DrawFallingAtom(seb, Sac3);
 
-                LookupTable.AnymaeFromAttributes(morality * -1, grace, out AtomType NewMorality);
+                LookupTables.AnymaeFromAttributes(morality * -1, grace, out AtomType NewMorality);
 
                 Brimstone.API.ChangeAtom(SympSubject, NewMorality);
                 Brimstone.API.PlaySound(sim, Sounds.Sympathy);
@@ -571,7 +567,7 @@ public static class Glyphs
                 {
                     return;
                 }
-                if (!LookupTable.AttributesFromAnymae(ImmoralSubject.field_2280, out int morality, out int grace))
+                if (!LookupTables.AttributesFromAnymae(ImmoralSubject.field_2280, out int morality, out int grace))
                 {
                     return;
                 }
@@ -579,8 +575,8 @@ public static class Glyphs
                 {
                     return;
                 }
-                LookupTable.AnymaeFromAttributes(morality - 1, grace, out AtomType NewImmoral);
-                LookupTable.AnymaeFromAttributes(morality + 1, grace, out AtomType NewMoral);
+                LookupTables.AnymaeFromAttributes(morality - 1, grace, out AtomType NewImmoral);
+                LookupTables.AnymaeFromAttributes(morality + 1, grace, out AtomType NewMoral);
 
                 Brimstone.API.PlaySound(sim, Sounds.Polarization);
 
@@ -637,7 +633,7 @@ public static class Glyphs
                     madeCelest = true;
                 }
 
-                else if ((!LookupTable.SwapCardinalPairing(Intake.field_2280, out SwappedCardinal, out bool isHeavenly)) || isHeavenly)
+                else if ((!LookupTables.SwapCardinalPairing(Intake.field_2280, out SwappedCardinal, out bool isHeavenly)) || isHeavenly)
                 {
                     return;
                 }
@@ -692,7 +688,7 @@ public static class Glyphs
             {
                 if (first)
                 {
-                    if (sim.FindAtomRelative(part, ReductionOut1).method_1085() || sim.FindAtomRelative(part, ReductionOut2).method_1085() || sim.FindAtomRelative(part, ReductionOut3).method_1085() || sim.FindAtomRelative(part, ReductionOut4).method_1085())
+                    if (sim.FindAtomRelative(part, ReductionBodyOut).method_1085() || sim.FindAtomRelative(part, ReductionMindOut).method_1085() || sim.FindAtomRelative(part, ReductionSoulOut).method_1085() || sim.FindAtomRelative(part, ReductionVoidOut).method_1085())
                     {
                         return;
                     }
@@ -718,10 +714,10 @@ public static class Glyphs
                 else if (pss.field_2743)
                 {
 
-                    Brimstone.API.AddAtom(sim, part, ReductionOut1, pss.field_2744[0]);
-                    Brimstone.API.AddAtom(sim, part, ReductionOut2, pss.field_2744[1]);
-                    Brimstone.API.AddAtom(sim, part, ReductionOut3, pss.field_2744[2]);
-                    Brimstone.API.AddAtom(sim, part, ReductionOut4, pss.field_2744[3]);
+                    Brimstone.API.AddAtom(sim, part, ReductionBodyOut, pss.field_2744[0]);
+                    Brimstone.API.AddAtom(sim, part, ReductionMindOut, pss.field_2744[1]);
+                    Brimstone.API.AddAtom(sim, part, ReductionSoulOut, pss.field_2744[2]);
+                    Brimstone.API.AddAtom(sim, part, ReductionVoidOut, pss.field_2744[3]);
                 }
             }
 
@@ -811,7 +807,7 @@ public static class Glyphs
                 {
                     return;
                 }
-                if (!LookupTable.AttributesFromAnymae(moralSubject.field_2280, out int morality, out int grace) || !LookupTable.AttributesFromAnymae(immoralSubject.field_2280, out int morality2, out int grace2))
+                if (!LookupTables.AttributesFromAnymae(moralSubject.field_2280, out int morality, out int grace) || !LookupTables.AttributesFromAnymae(immoralSubject.field_2280, out int morality2, out int grace2))
                 {
                     return;
                 }
@@ -828,8 +824,8 @@ public static class Glyphs
                     return;
                 }
 
-                LookupTable.AnymaeFromAttributes(0, grace, out AtomType immoralAbsolved);
-                LookupTable.AnymaeFromAttributes(0, grace, out AtomType moralAbsolved);
+                LookupTables.AnymaeFromAttributes(0, grace, out AtomType immoralAbsolved);
+                LookupTables.AnymaeFromAttributes(0, grace, out AtomType moralAbsolved);
 
                 Brimstone.API.PlaySound(sim, Sounds.Absolution);
 
@@ -876,7 +872,7 @@ public static class Glyphs
                     return;
                 }
 
-                if (!LookupTable.AttributesFromAnymae(anymaeSubject.field_2280, out int morality, out int grace) || !LookupTable.AnymaeFromAttributes(morality, grace + deltaGrace, out AtomType NewAnymae))
+                if (!LookupTables.AttributesFromAnymae(anymaeSubject.field_2280, out int morality, out int grace) || !LookupTables.AnymaeFromAttributes(morality, grace + deltaGrace, out AtomType NewAnymae))
                 {
                     return;
                 }
