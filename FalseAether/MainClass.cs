@@ -5,15 +5,15 @@ public class MainClass : QuintessentialMod
 {
     public const string LoggerPrefix = "False Aether: ";
     public static readonly string InquisitionPermission = "FalseAether:Inquisition";
-    public static readonly string EmpowermentPermission = "FalseAether:Empowerment";
     public static readonly string PolarizationPermission = "FalseAether:Polarization";
-    public static readonly string TrueSightPermission = "FalseAether:TrueSight";
     public static readonly string AbsolutionPermission = "FalseAether:Absolution";
-    public static readonly string OlympusPermission = "FalseAether:Olympus";
-    public static readonly string ReductionPermission = "FalseAether:Reduction";
+    public static readonly string EmpowermentPermission = "FalseAether:Empowerment";
+    public static readonly string TrueSightPermission = "FalseAether:TrueSight";
     public static readonly string CuringPermission = "FalseAether:Curing";
     public static readonly string SympathyPermission = "FalseAether:Sympathy";
     public static readonly string EnchantmentPermission = "FalseAether:Enchantment";
+    public static readonly string OlympusPermission = "FalseAether:Olympus";
+    public static readonly string ReductionPermission = "FalseAether:Reduction";
 
     public static string contentPath;
 

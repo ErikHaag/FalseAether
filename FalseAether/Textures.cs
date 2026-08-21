@@ -4,6 +4,7 @@ namespace FalseAether;
 public static class Textures
 {
     private const string partsPath = "textures/parts/erikhaag/FalseAether/";
+    
     public static class Icons
     {
         public static Texture Inquisition = Brimstone.API.GetTexture(partsPath + "icons/inquisition");
@@ -15,19 +16,14 @@ public static class Textures
         public static Texture Absolution = Brimstone.API.GetTexture(partsPath + "icons/absolution");
         public static Texture AbsolutionHovered = Brimstone.API.GetTexture(partsPath + "icons/absolution_hovered");
 
-        public static Texture TrueSight = Brimstone.API.GetTexture(partsPath + "icons/true_sight");
-        public static Texture TrueSightHovered = Brimstone.API.GetTexture(partsPath + "icons/true_sight_hovered");
-
         public static Texture Empowerment = Brimstone.API.GetTexture(partsPath + "icons/empowerment");
         public static Texture EmpowermentHovered = Brimstone.API.GetTexture(partsPath + "icons/empowerment_hovered");
 
-        public static Texture Enchantment = Brimstone.API.GetTexture(partsPath + "icons/Enchantment");
-        public static Texture EnchantmentHovered = Brimstone.API.GetTexture(partsPath + "icons/Enchantment_hovered");
+        public static Texture TrueSight = Brimstone.API.GetTexture(partsPath + "icons/true_sight");
+        public static Texture TrueSightHovered = Brimstone.API.GetTexture(partsPath + "icons/true_sight_hovered");
 
-        public static Texture Olympus = Brimstone.API.GetTexture(partsPath + "icons/olympus");
-        public static Texture OlympusHovered = Brimstone.API.GetTexture(partsPath + "icons/olympus_hovered");
-        public static Texture Reduction = Brimstone.API.GetTexture(partsPath + "icons/reduction");
-        public static Texture ReductionHovered = Brimstone.API.GetTexture(partsPath + "icons/reduction_hovered");
+        public static Texture Enchantment = Brimstone.API.GetTexture(partsPath + "icons/enchantment");
+        public static Texture EnchantmentHovered = Brimstone.API.GetTexture(partsPath + "icons/enchantment_hovered");
 
         public static Texture Curing = Brimstone.API.GetTexture(partsPath + "icons/curing");
         public static Texture CuringHovered = Brimstone.API.GetTexture(partsPath + "icons/curing_hovered");
@@ -35,7 +31,12 @@ public static class Textures
         public static Texture Sympathy = Brimstone.API.GetTexture(partsPath + "icons/sympathy");
         public static Texture SympathyHovered = Brimstone.API.GetTexture(partsPath + "icons/sympathy_hovered");
 
+        public static Texture Olympus = Brimstone.API.GetTexture(partsPath + "icons/olympus");
+        public static Texture OlympusHovered = Brimstone.API.GetTexture(partsPath + "icons/olympus_hovered");
+        public static Texture Reduction = Brimstone.API.GetTexture(partsPath + "icons/reduction");
+        public static Texture ReductionHovered = Brimstone.API.GetTexture(partsPath + "icons/reduction_hovered");
     }
+    
     public static class Select
     {
         public static Texture LineGlow = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/line_glow");
@@ -88,26 +89,24 @@ public static class Textures
 
 
     // Glyph Specific Textures
-    public static class Olympus
+    public static class Inquisition
     {
-        public static Texture Base = Brimstone.API.GetTexture(partsPath + "EUni/base");
-        public static Texture Body = Brimstone.API.GetTexture(partsPath + "EUni/body_symbol");
-        public static Texture Mind = Brimstone.API.GetTexture(partsPath + "EUni/mind_symbol");
-        public static Texture Void = Brimstone.API.GetTexture(partsPath + "EUni/void_symbol");
-        public static Texture Soul = Brimstone.API.GetTexture(partsPath + "EUni/soul_symbol");
+        public static Texture MagisBowl = Brimstone.API.GetTexture(partsPath + "Inquisition/magis_bowl");
+        public static Texture DaedrumBowl = Brimstone.API.GetTexture(partsPath + "Inquisition/daedrum_bowl");
     }
+
+    public static class Polarization
+    {
+        public static Texture PolarizationEngraving = Brimstone.API.GetTexture(partsPath + "Polarization/polarization_symbol");
+        public static Texture PolarizationMorsTint = Brimstone.API.GetTexture(partsPath + "Polarization/polarization_mors_tint");
+        public static Texture PolarizationVitaeTint = Brimstone.API.GetTexture(partsPath + "Polarization/polarization_vitae_tint");
+        public static Texture PolarizationBase = Brimstone.API.GetTexture(partsPath + "Polarization/polarization_base");
+    }
+
     public static class Enchantment
     {
         public static Texture Base = Brimstone.API.GetTexture(partsPath + "Enchantment/base");
         public static Texture CrazyIris = Brimstone.API.GetTexture(partsPath + "Enchantment/crazy_iris");
-    }
-    public static class Reduction
-    {
-        public static Texture Base = Brimstone.API.GetTexture(partsPath + "EDisp/base");
-        public static Texture BodyGlow = Brimstone.API.GetTexture(partsPath + "EDisp/body_symbol");
-        public static Texture MindGlow = Brimstone.API.GetTexture(partsPath + "EDisp/mind_symbol");
-        public static Texture SoulGlow = Brimstone.API.GetTexture(partsPath + "EDisp/soul_symbol");
-        public static Texture VoidGlow = Brimstone.API.GetTexture(partsPath + "EDisp/void_symbol");
     }
 
     public static class Curing
@@ -115,10 +114,10 @@ public static class Textures
         public static Texture Base = Brimstone.API.GetTexture(partsPath + "Curing/base");
         
     }
-
-    public static class Sympathy
+    public static class Absolution
     {
-        public static Texture Base = Brimstone.API.GetTexture(partsPath + "Sympathy/base");
+        public static Texture Engravings = Brimstone.API.GetTexture(partsPath + "Absolution/anymae_engraving");
+        public static Texture Base = Brimstone.API.GetTexture(partsPath + "Absolution/base");
     }
     public static class Empowerment
     {
@@ -128,29 +127,36 @@ public static class Textures
         public static Texture SaltSymbol = Brimstone.API.GetTexture(partsPath + "Empowerment/salt_engraving");
         public static Texture PowerSymbol = Brimstone.API.GetTexture(partsPath + "Empowerment/power_symbol");
     }
-    public static class Inquisition
-    {
-        public static Texture MagisBowl = Brimstone.API.GetTexture(partsPath + "Inquisition/magis_bowl");
-        public static Texture DaedrumBowl = Brimstone.API.GetTexture(partsPath + "Inquisition/daedrum_bowl");
-    }
-
-    public static class Absolution
-    {
-        public static Texture Engravings = Brimstone.API.GetTexture(partsPath + "Absolution/anymae_engraving");
-        public static Texture Base = Brimstone.API.GetTexture(partsPath + "Absolution/base");
-    }
+    
     public static class TrueSight
     {
         public static Texture TrueSightBase = Brimstone.API.GetTexture(partsPath + "TrueSight/truesight_base");
         public static Texture TrueSightEye = Brimstone.API.GetTexture(partsPath + "TrueSight/truesight_eye");
 
     }
-    public static class Polarization
+    public static class Sympathy
     {
-        public static Texture PolarizationEngraving = Brimstone.API.GetTexture(partsPath + "Polarization/polarization_symbol");
-        public static Texture PolarizationMorsTint = Brimstone.API.GetTexture(partsPath + "Polarization/polarization_mors_tint");
-        public static Texture PolarizationVitaeTint = Brimstone.API.GetTexture(partsPath + "Polarization/polarization_vitae_tint");
-        public static Texture PolarizationBase = Brimstone.API.GetTexture(partsPath + "Polarization/polarization_base");
-
+        public static Texture Base = Brimstone.API.GetTexture(partsPath + "Sympathy/base");
     }
+
+    public static class Olympus
+    {
+        public static Texture Base = Brimstone.API.GetTexture(partsPath + "EUni/base");
+        public static Texture Body = Brimstone.API.GetTexture(partsPath + "EUni/body_symbol");
+        public static Texture Mind = Brimstone.API.GetTexture(partsPath + "EUni/mind_symbol");
+        public static Texture Void = Brimstone.API.GetTexture(partsPath + "EUni/void_symbol");
+        public static Texture Soul = Brimstone.API.GetTexture(partsPath + "EUni/soul_symbol");
+    }
+
+    public static class Reduction
+    {
+        public static Texture Base = Brimstone.API.GetTexture(partsPath + "EDisp/base");
+
+        // potentially remove?
+        public static Texture BodyGlow = Brimstone.API.GetTexture(partsPath + "EDisp/body_symbol");
+        public static Texture MindGlow = Brimstone.API.GetTexture(partsPath + "EDisp/mind_symbol");
+        public static Texture SoulGlow = Brimstone.API.GetTexture(partsPath + "EDisp/soul_symbol");
+        public static Texture VoidGlow = Brimstone.API.GetTexture(partsPath + "EDisp/void_symbol");
+    }
+
 }
