@@ -7,17 +7,17 @@
 
 	<PropertyGroup>
 		<!--
-		<OpusPath>C:\Program Files (x86)\Steam\steamapps\common\Opus Magnum Old</OpusPath>
-		-->
 		<OpusPath>C:\Program Files (x86)\Steam\steamapps\common\Opus Magnum</OpusPath>
+		-->
+		<OpusPath>C:\Program Files (x86)\Steam\steamapps\common\Opus Magnum Old</OpusPath>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Reference Include="Brimstone">
 			<!--
-			<HintPath>$(OpusPath)\Mods\Brimstone\Brimstone.dll</HintPath>
-			-->
 			<HintPath>$(OpusPath)\UnpackedMods\Brimstone_2.3.0\Brimstone.dll</HintPath>
+			-->
+			<HintPath>$(OpusPath)\Mods\Brimstone\Brimstone.dll</HintPath>
 		</Reference>
 		<Reference Include="MMHOOK_ModdedLightning">
 			<HintPath>$(OpusPath)\MMHOOK_ModdedLightning.dll</HintPath>

@@ -86,7 +86,7 @@ public static class Glyphs
     public static readonly HexIndex EmpowermentPowerBowl = new(1, 0);
 
     public static PartType TrueSight;
-    
+
     public static PartType Curing;
     public static readonly HexIndex CuringBowl = new(0, 0);
     public static readonly HexIndex CuringHole1 = new(0, -1);
@@ -262,23 +262,23 @@ public static class Glyphs
         QApi.AddPartTypeToPanel(Curing, false);
         QApi.AddPartType(Curing, static (part, pos, editor, renderer) =>
         {
+            Brimstone.API.GetRenderingHelpers(part, pos, editor, out PartSimState pss, out class_236 partDataWrapper, out float time);
             Vector2 pivot = new(82, 119);
             renderer.method_523(Textures.Curing.Base, new Vector2(-1, -1), pivot, 0);
             renderer.method_528(Textures.SharedTextures.BasicBowl, CuringBowl, Vector2.Zero);
             renderer.method_529(Textures.SharedTextures.PolarEngraving, CuringBowl, Vector2.Zero);
-            renderer.method_528(Textures.SharedTextures.BasicHole, CuringHole1, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.CelestGlow, CuringHole1, Vector2.Zero);
-            renderer.method_528(Textures.SharedTextures.BasicHole, CuringHole2, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.CelestGlow, CuringHole2, Vector2.Zero);
-            // renderer.method_529(Textures.Inquisition.MagisBowl, InquisitionMagisBowl, Vector2.Zero);
-            // renderer.method_529(Textures.Inquisition.DaedrumBowl, InquisitionDaedrumBowl, Vector2.Zero);
+            foreach (HexIndex hole in new HexIndex[] { CuringHole1, CuringHole2 })
+            {
+                renderer.method_528(Textures.SharedTextures.BasicHole, hole, Vector2.Zero);
+                class_135.method_272(Textures.Holes.Celest, (Brimstone.API.HexIndexToVector2(hole).Rotated(partDataWrapper.field_1985) + partDataWrapper.field_1984 - Textures.Holes.Celest.field_2056.ToVector2() / 2).Rounded());
+            }
         });
 
         Sympathy = Brimstone.API.CreateSimpleGlyph(
 
             ID: "FalseAether-Sympathy",
             name: "Glyph of Sympathy",
-            description: "The glyph of sympathy sacrifices three celest to reverse any non-neutral anymae's morality without affecting their grace.",
+            description: "The glyph of sympathy sacrifices three salt to reverse any non-neutral anymae's morality without affecting their grace.",
             cost: 50,
             glow: Textures.Select.SympathyGlow,
             stroke: Textures.Select.SympathyStroke,
@@ -290,18 +290,16 @@ public static class Glyphs
         QApi.AddPartTypeToPanel(Sympathy, false);
         QApi.AddPartType(Sympathy, static (part, pos, editor, renderer) =>
         {
+            Brimstone.API.GetRenderingHelpers(part, pos, editor, out PartSimState pss, out class_236 partDataWrapper, out float time);
             Vector2 pivot = new(164, 119);
             renderer.method_523(Textures.Sympathy.Base, new Vector2(-1, -1), pivot, 0);
             renderer.method_528(Textures.SharedTextures.BasicBowl, SympathyBowl, Vector2.Zero);
             renderer.method_529(Textures.SharedTextures.PolarEngraving, SympathyBowl, Vector2.Zero);
-            renderer.method_528(Textures.SharedTextures.BasicHole, SympathyHole1, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.SaltGlow, SympathyHole1, Vector2.Zero);
-            renderer.method_528(Textures.SharedTextures.BasicHole, SympathyHole2, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.SaltGlow, SympathyHole2, Vector2.Zero);
-            renderer.method_528(Textures.SharedTextures.BasicHole, SympathyHole3, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.SaltGlow, SympathyHole3, Vector2.Zero);
-            // renderer.method_529(Textures.Inquisition.MagisBowl, InquisitionMagisBowl, Vector2.Zero);
-            // renderer.method_529(Textures.Inquisition.DaedrumBowl, InquisitionDaedrumBowl, Vector2.Zero);
+            foreach (HexIndex hole in new HexIndex[] { SympathyHole1, SympathyHole2, SympathyHole3 })
+            {
+                renderer.method_528(Textures.SharedTextures.BasicHole, hole, Vector2.Zero);
+                class_135.method_272(Textures.Holes.Salt, (Brimstone.API.HexIndexToVector2(hole).Rotated(partDataWrapper.field_1985) + partDataWrapper.field_1984 - Textures.Holes.Salt.field_2056.ToVector2() / 2).Rounded());
+            }
         });
 
         #endregion
@@ -330,10 +328,12 @@ public static class Glyphs
             renderer.method_528(Textures.SharedTextures.BasicBowl, EnchantmentCardHost, Vector2.Zero);
             renderer.method_529(Textures.SharedTextures.CardinalsEngraved, EnchantmentCardHost, Vector2.Zero);
             renderer.method_528(Textures.Enchantment.CrazyIris, EnchantmentHeavOut, Vector2.Zero);
-            renderer.method_529(Textures.Olympus.Mind, EnchantmentHeavOut, Vector2.Zero);
-            renderer.method_529(Textures.Olympus.Body, EnchantmentHeavOut, Vector2.Zero);
-            renderer.method_529(Textures.Olympus.Soul, EnchantmentHeavOut, Vector2.Zero);
-            renderer.method_529(Textures.Olympus.Void, EnchantmentHeavOut, Vector2.Zero);
+
+            // todo: replace this with actual engraved texture
+            renderer.method_529(Textures.Olympus.MindInactive, EnchantmentHeavOut, Vector2.Zero);
+            renderer.method_529(Textures.Olympus.BodyInactive, EnchantmentHeavOut, Vector2.Zero);
+            renderer.method_529(Textures.Olympus.SoulInactive, EnchantmentHeavOut, Vector2.Zero);
+            renderer.method_529(Textures.Olympus.VoidInactive, EnchantmentHeavOut, Vector2.Zero);
             renderer.method_529(Textures.SharedTextures.DividerEngraving, EnchantmentHeavOut, Vector2.Zero);
         });
 
@@ -355,18 +355,50 @@ public static class Glyphs
         QApi.AddPartTypeToPanel(Olympus, false);
         QApi.AddPartType(Olympus, static (part, pos, editor, renderer) =>
         {
-            Brimstone.API.GetRenderingHelpers(part, pos, editor, out var pss, out var partDataWrapper, out var time);
+            Brimstone.API.GetRenderingHelpers(part, pos, editor, out PartSimState pss, out class_236 partDataWrapper, out float time);
             Vector2 pivot = new(123, 190);
             Vector2 offset = new(-1, -1);
             renderer.method_523(Textures.Olympus.Base, offset, pivot, 0);
 
+            // bitwise operations!
+            int atomsPresent = 0;
+
+            foreach (HexIndex h in OlympusInputs)
+            {
+                foreach (Molecule m in editor.method_507().method_483())
+                {
+                    if (m.method_1100().Count == 1 && m.method_1100().TryGetValue(part.method_1184(h), out Atom a))
+                    {
+                        AtomType aT = a.field_2275;
+                        if (aT == Atoms.Body)
+                        {
+                            atomsPresent |= 0b0001;
+
+                        }
+                        else if (aT == Atoms.Mind)
+                        {
+                            atomsPresent |= 0b0010;
+                        }
+                        else if (aT == Atoms.Soul)
+                        {
+                            atomsPresent |= 0b0100;
+
+                        }
+                        else if (aT == Atoms.Void)
+                        {
+                            atomsPresent |= 0b1000;
+                        }
+                    }
+                }
+            }
+
             foreach (HexIndex hole in OlympusInputs)
             {
                 renderer.method_528(Textures.SharedTextures.BasicHole, hole, Vector2.Zero);
-                renderer.method_529(Textures.Olympus.Body, hole, Vector2.Zero);
-                renderer.method_529(Textures.Olympus.Mind, hole, Vector2.Zero);
-                renderer.method_529(Textures.Olympus.Soul, hole, Vector2.Zero);
-                renderer.method_529(Textures.Olympus.Void, hole, Vector2.Zero);
+                renderer.method_529(((atomsPresent & 1) == 0) ? Textures.Olympus.BodyActive : Textures.Olympus.BodyInactive, hole, Vector2.Zero);
+                renderer.method_529(((atomsPresent & 2) == 0) ? Textures.Olympus.MindActive : Textures.Olympus.MindInactive, hole, Vector2.Zero);
+                renderer.method_529(((atomsPresent & 4) == 0) ? Textures.Olympus.SoulActive : Textures.Olympus.SoulInactive, hole, Vector2.Zero);
+                renderer.method_529(((atomsPresent & 8) == 0) ? Textures.Olympus.VoidActive : Textures.Olympus.VoidInactive, hole, Vector2.Zero);
                 renderer.method_529(Textures.SharedTextures.DividerGlow, hole, Vector2.Zero);
             }
             Brimstone.API.DrawIris(renderer, partDataWrapper, OlympusOut, time, Textures.Irises.Erepiessence, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
@@ -397,7 +429,7 @@ public static class Glyphs
             Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionSoulOut, time, Textures.Irises.Soul, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[2]) : struct_18.field_1431);
             Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionVoidOut, time, Textures.Irises.Void, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[3]) : struct_18.field_1431);
             renderer.method_528(Textures.SharedTextures.BasicHole, ReductionIn, Vector2.Zero);
-            renderer.method_528(Textures.SharedTextures.ErepiGlow, ReductionIn, Vector2.Zero);
+            class_135.method_272(Textures.Holes.Erepiessence, (Brimstone.API.HexIndexToVector2(ReductionIn).Rotated(partDataWrapper.field_1985) + partDataWrapper.field_1984 - Textures.Holes.Erepiessence.field_2056.ToVector2() / 2).Rounded());
         });
 
         #endregion
@@ -816,19 +848,18 @@ public static class Glyphs
                             specialAtomNumber |= 0b0001;
 
                         }
-                        else if (holeAtom.field_2280 == Atoms.Soul)
-                        {
-                            specialAtomNumber |= 0b0010;
-
-                        }
                         else if (holeAtom.field_2280 == Atoms.Mind)
                         {
+                            specialAtomNumber |= 0b0010;
+                        }
+                        else if (holeAtom.field_2280 == Atoms.Soul)
+                        {
                             specialAtomNumber |= 0b0100;
+
                         }
                         else if (holeAtom.field_2280 == Atoms.Void)
                         {
                             specialAtomNumber |= 0b1000;
-
                         }
                         else
                         {
