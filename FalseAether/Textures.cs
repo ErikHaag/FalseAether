@@ -35,6 +35,9 @@ public static class Textures
         public static Texture OlympusHovered = Brimstone.API.GetTexture(partsPath + "icons/olympus_hovered");
         public static Texture Reduction = Brimstone.API.GetTexture(partsPath + "icons/reduction");
         public static Texture ReductionHovered = Brimstone.API.GetTexture(partsPath + "icons/reduction_hovered");
+        
+        public static Texture Incantation= Brimstone.API.GetTexture(partsPath + "icons/incantation");
+        public static Texture IncantationHovered = Brimstone.API.GetTexture(partsPath + "icons/incantation_hovered");
     }
     
     public static class Select
@@ -56,6 +59,9 @@ public static class Textures
 
         public static Texture SympathyGlow = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Sympathy/glow");
         public static Texture SympathyStroke = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Sympathy/stroke");
+        
+        public static Texture IncantationGlow = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Incantation/glow");
+        public static Texture IncantationStroke = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Incantation/stroke");
     }
 
     public static class SharedTextures 
@@ -84,7 +90,7 @@ public static class Textures
     public static class Bowls
     {
         public static Texture Erepiessence = Brimstone.API.GetTexture(partsPath + "erepiessence_bowl");
-    }`
+    }
 
     public static class Irises
     {
@@ -104,6 +110,10 @@ public static class Textures
         public static Texture DaedrumBowl = Brimstone.API.GetTexture(partsPath + "Inquisition/daedrum_bowl");
     }
 
+    public static class Incantation
+    {
+        public static Texture IncantationBase = Brimstone.API.GetTexture(partsPath + "Incantation/base");
+    }
     public static class Polarization
     {
         public static Texture PolarizationEngraving = Brimstone.API.GetTexture(partsPath + "Polarization/polarization_symbol");

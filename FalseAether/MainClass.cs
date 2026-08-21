@@ -14,6 +14,7 @@ public class MainClass : QuintessentialMod
     public static readonly string EnchantmentPermission = "FalseAether:Enchantment";
     public static readonly string OlympusPermission = "FalseAether:Olympus";
     public static readonly string ReductionPermission = "FalseAether:Reduction";
+    public static readonly string IncantationPermission = "FalseAether:Incantation";
 
     public static string contentPath;
 
@@ -41,6 +42,7 @@ public class MainClass : QuintessentialMod
         QApi.AddPuzzlePermission(EnchantmentPermission, "Glyph of Enchantment", "False Aether: Heavenlies and Earthlies");
         QApi.AddPuzzlePermission(OlympusPermission, "Glyph of Olympus", "False Aether: Erepiessence and Ether");
         QApi.AddPuzzlePermission(ReductionPermission, "Glyph of Reduction", "False Aether: Erepiessence and Ether");
+        QApi.AddPuzzlePermission(IncantationPermission, "Glyph of Incantation", "False Aether: Erepiessence and Ether");
         Logger.Log(LoggerPrefix + "Loading sounds.");
         Sounds.LoadSounds();
         Logger.Log(LoggerPrefix + "Done.");
