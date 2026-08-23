@@ -5,6 +5,7 @@ using PartType = class_139;
 using MonoMod.Cil;
 using Mono.Cecil.Cil;
 using System;
+using System.Collections.Generic;
 
 namespace FalseAether;
 
@@ -75,6 +76,12 @@ public static class Glyphs
     public static readonly HexIndex InquisitionMagisBowl = new(0, 0);
     public static readonly HexIndex InquisitionDaedrumBowl = new(1, 0);
 
+    public static PartType PortalingOut;
+    public static readonly HexIndex PortalingIris = new(0, 0);
+
+    public static PartType PortalingIn;
+    public static readonly HexIndex PortalingInput = new(0, 0);
+    
     public static PartType Polarization;
     public static readonly HexIndex PolarizationImmoralBowl = new(0, 0);
     public static readonly HexIndex PolarizationMoralBowl = new(1, 0);
@@ -100,6 +107,12 @@ public static class Glyphs
     public static readonly HexIndex SympathyHole1 = new(1, 0);
     public static readonly HexIndex SympathyHole2 = new(1, -1);
     public static readonly HexIndex SympathyHole3 = new(2, -1);
+    
+    public static PartType Reconstruction;
+    public static readonly HexIndex QuintLikeBowl = new(0, 0);
+    public static readonly HexIndex CelestBowl1 = new(-1, -1);
+    public static readonly HexIndex CelestBowl2 = new(2, -1);
+    public static readonly HexIndex ReconstructionPowerHole = new(1, -2);
 
     public static PartType Enchantment;
     public static readonly HexIndex EnchantmentInCard = new(-1, 0);
@@ -157,6 +170,35 @@ public static class Glyphs
             renderer.method_523(class_238.field_1989.field_90.field_255.field_288, new Vector2(-1f, -1f), pivot, 0);
             renderer.method_529(Textures.Inquisition.MagisBowl, InquisitionMagisBowl, Vector2.Zero);
             renderer.method_529(Textures.Inquisition.DaedrumBowl, InquisitionDaedrumBowl, Vector2.Zero);
+        });
+
+        Reconstruction = Brimstone.API.CreateSimpleGlyph(
+
+            ID: "FalseAether-Reconstruction",
+            name: "Glyph of Reconstruction",
+            description: "The glyph of reconstrucion changes quintessence to erepiessence and vice versa using magis or daedrum, and must have a celest on the two side bowls.",
+            cost: 35,
+            glow: Textures.Select.ReconstructionGlow,
+            stroke: Textures.Select.ReconstructionStroke,
+            icon: Textures.Icons.Reconstruction,
+            hoveredIcon: Textures.Icons.ReconstructionHovered,
+            usedHexes: new HexIndex[] { QuintLikeBowl, CelestBowl1, new HexIndex(0, -1), new HexIndex(1, -1), CelestBowl2, ReconstructionPowerHole },
+            customPermission: MainClass.ReconstructionPermission
+            );
+        QApi.AddPartTypeToPanel(Reconstruction, false);
+        QApi.AddPartType(Reconstruction, static (part, pos, editor, renderer) =>
+        {
+            Vector2 pivot = new(164, 190);
+            renderer.method_523(Textures.Reconstruction.Base, new Vector2(-1, -1), pivot, 0);
+            renderer.method_528(Textures.SharedTextures.BasicBowl, QuintLikeBowl, Vector2.Zero);
+            //renderer.method_529(Textures.Polarization.PolarizationEngraving, PolarizationImmoralBowl, Vector2.Zero);
+            renderer.method_528(Textures.SharedTextures.BasicBowl, CelestBowl1, Vector2.Zero);
+            renderer.method_529(Textures.Holes.Celest, CelestBowl1, Vector2.Zero);
+            renderer.method_528(Textures.SharedTextures.BasicBowl, CelestBowl2, Vector2.Zero);
+            renderer.method_529(Textures.Holes.Celest, CelestBowl2, Vector2.Zero);
+            renderer.method_528(Textures.SharedTextures.BasicHole, ReconstructionPowerHole, Vector2.Zero);
+            renderer.method_529(Textures.SharedTextures.PowerGlow, ReconstructionPowerHole, Vector2.Zero);
+            
         });
 
         Polarization = Brimstone.API.CreateSimpleGlyph(
@@ -256,9 +298,55 @@ public static class Glyphs
             renderer.method_529(Textures.SharedTextures.BasicBowl, SaltOut, Vector2.Zero);
             renderer.method_528(Textures.SharedTextures.BasicBowl, EtherOut1, Vector2.Zero);
             renderer.method_528(Textures.SharedTextures.BasicBowl, EtherOut2, Vector2.Zero);
-            Brimstone.API.DrawIris(renderer, partDataWrapper, EtherOut1, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, EtherOut1, time, Textures.Irises.Ether, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
             Brimstone.API.DrawIris(renderer, partDataWrapper, SaltOut, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[1]) : struct_18.field_1431);
-            Brimstone.API.DrawIris(renderer, partDataWrapper, EtherOut2, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[2]) : struct_18.field_1431);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, EtherOut2, time, Textures.Irises.Ether, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[2]) : struct_18.field_1431);
+
+        });
+
+        PortalingIn = Brimstone.API.CreateSimpleGlyph(
+
+            ID: "FalseAether-PortalingIn",
+            name: "Glyph of Portaling (Inlet)",
+            description: "The glyph of portaling is a multi part glyph. Any atoms dropped into an inlet lead to the outlet (if present), otherwise it does nothing.",
+            cost: 5,
+            glow: Textures.Select.SingleGlow,
+            stroke: Textures.Select.SingleStroke,
+            icon: Textures.Icons.Portaling,
+            hoveredIcon: Textures.Icons.PortalingHovered,
+            usedHexes: new HexIndex[] { PortalingInput },
+            customPermission: MainClass.PortalingPermission
+            );
+        QApi.AddPartTypeToPanel(PortalingIn, false);
+        QApi.AddPartType(PortalingIn, static (part, pos, editor, renderer) =>
+        {
+            Vector2 centre = new(41f, 49f);
+            renderer.method_523(Textures.TrueSight.TrueSightBase, new Vector2(-1, -1), centre, 0f);
+            renderer.method_529(Textures.TrueSight.TrueSightEye, new(0, 0), Vector2.Zero);
+
+        });
+        PortalingOut = Brimstone.API.CreateSimpleGlyph(
+
+
+            ID: "FalseAether-PortalingOut",
+            name: "Glyph of Portaling (Outlet)",
+            description: "The glyph of portaling is a multi part glyph. Any atoms dropped into an inlet lead to the outlet (if present), otherwise it does nothing.",
+            cost: 30,
+            glow: Textures.Select.SingleGlow,
+            stroke: Textures.Select.SingleStroke,
+            icon: Textures.Icons.Portaling,
+            hoveredIcon: Textures.Icons.PortalingHovered,
+            usedHexes: new HexIndex[] { PortalingIris },
+            customPermission: MainClass.PortalingPermission2
+            );
+        PortalingOut.field_1552 = true;
+        QApi.AddPartTypeToPanel(PortalingOut, false);
+        QApi.AddPartType(PortalingOut, static (part, pos, editor, renderer) =>
+        {
+            Vector2 centre = new(41f, 49f);
+            renderer.method_523(Textures.TrueSight.TrueSightBase, new Vector2(-1, -1), centre, 0f);
+            renderer.method_529(Textures.TrueSight.TrueSightEye, new(0, 0), Vector2.Zero);
+
         });
 
         TrueSight = Brimstone.API.CreateSimpleGlyph(
@@ -522,6 +610,111 @@ public static class Glyphs
 
                 Brimstone.API.PlaySound(sim, Sounds.Inquisition);
             }
+
+            else if (type == Reconstruction)
+            {
+                if (!(sim.FindAtomRelative(part, QuintLikeBowl).method_99(out AtomReference QuintSubject) && sim.FindAtomRelative(part, CelestBowl1).method_99(out AtomReference Celest1) && sim.FindAtomRelative(part, CelestBowl2).method_99(out AtomReference Celest2) && sim.FindAtomRelative(part, ReconstructionPowerHole).method_99(out AtomReference Input)))
+                {
+                    return;
+                }
+                if (Input.field_2281 || Input.field_2282)
+                {
+                    return;
+                }
+                if (!(Celest1.field_2280 == Celest2.field_2280 && Celest1.field_2280 == Atoms.Celest))
+                {
+                    return;
+                }
+                if (!(QuintSubject.field_2280 == Atoms.Erepiessence || QuintSubject.field_2280 == Brimstone.API.VanillaAtoms.quintessence))
+                {
+                    return;
+                }
+                if (!(Input.field_2280 == Atoms.Magis || Input.field_2280 == Atoms.Daedrum))
+                {
+                    return;
+                }
+
+                if (QuintSubject.field_2280 == Brimstone.API.VanillaAtoms.quintessence && Input.field_2280 == Atoms.Magis)
+                {
+                    Brimstone.API.ChangeAtom(QuintSubject, Atoms.Erepiessence);
+                    QuintSubject.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)1,
+                        QuintSubject.field_2280,
+                        class_238.field_1989.field_81.field_614,
+                        30
+                    );
+
+                }
+                else if (QuintSubject.field_2280 == Atoms.Erepiessence && Input.field_2280 == Atoms.Daedrum)
+                {
+                    Brimstone.API.ChangeAtom(QuintSubject, Brimstone.API.VanillaAtoms.quintessence);
+                    QuintSubject.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)1,
+                        QuintSubject.field_2280,
+                        class_238.field_1989.field_81.field_614,
+                        30
+                    );
+                }
+
+                if (Input.field_2280 == Atoms.Magis)
+                {
+                    Brimstone.API.ChangeAtom(Celest1, Atoms.Ether);
+                    Brimstone.API.ChangeAtom(Celest2, Atoms.Ether);
+                    Celest1.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)1,
+                        Celest1.field_2280,
+                        class_238.field_1989.field_81.field_614,
+                        30
+                    );
+                    Celest2.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)1,
+                        Celest2.field_2280,
+                        class_238.field_1989.field_81.field_614,
+                        30
+                    );
+                }
+                else
+                {
+                    Brimstone.API.ChangeAtom(Celest1, Salt);
+                    Brimstone.API.ChangeAtom(Celest2, Salt);
+                    Celest1.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        Celest1.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
+                    Celest2.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        Celest2.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
+                }
+                
+                Brimstone.API.RemoveAtom(Input);
+                Brimstone.API.DrawFallingAtom(seb, Input);
+
+                
+            }
+
             else if (type == Polarization)
             {
                 if (!(sim.FindAtomRelative(part, PolarizationImmoralBowl).method_99(out AtomReference ImmoralSubject) && sim.FindAtomRelative(part, PolarizationMoralBowl).method_99(out AtomReference MoralSubject)))
@@ -881,13 +1074,35 @@ public static class Glyphs
                         class_238.field_1989.field_81.field_611,
                         30
                     );
+                    seb.field_3935.Add(new class_228
+                            (
+                                seb,
+                                (enum_7)1,
+                                Brimstone.API.HexIndexToVector2(part.method_1184(ErepiBowl)) + new Vector2(147, 47),
+                                class_238.field_1989.field_90.field_242,
+                                30,
+                                Vector2.Zero,
+                                0
+                            )
+                        );
                 }
                 else if (pss.field_2743)
                 {
 
-                    Brimstone.API.AddAtom(sim, part, EtherOut1, pss.field_2744[0]);
-                    Brimstone.API.AddAtom(sim, part, SaltOut, pss.field_2744[1]);
-                    Brimstone.API.AddAtom(sim, part, EtherOut2, pss.field_2744[2]);
+                    Molecule output = new Molecule();
+                    output.method_1105(new Atom(pss.field_2744[0]), part.method_1184(EtherOut1));
+                    output.method_1105(new Atom(pss.field_2744[1]), part.method_1184(SaltOut));
+                    output.method_1105(new Atom(pss.field_2744[2]), part.method_1184(EtherOut2));
+
+                    // is thaat the 1 of 1 of 1 of1 ???!!
+                    output.method_1111(enum_126.Standard, part.method_1184(EtherOut1), part.method_1184(SaltOut));
+                    output.method_1111(enum_126.Standard, part.method_1184(SaltOut), part.method_1184(EtherOut2));
+
+                    sim.field_3823.Add(output);
+                    
+                    // Brimstone.API.AddAtom(sim, part, EtherOut1, pss.field_2744[0]);
+                    // Brimstone.API.AddAtom(sim, part, SaltOut, pss.field_2744[1]);
+                    // Brimstone.API.AddAtom(sim, part, EtherOut2, pss.field_2744[2]);
                     
                 }
 
@@ -1009,6 +1224,65 @@ public static class Glyphs
 
 
         });
+
+        QApi.RunAfterCycle((sim, first) =>
+        {
+
+            if (first)
+            {
+                return;
+            }
+            List<Atom> atoms = new List<Atom>();
+            foreach (Molecule m in sim.field_3823)
+            {
+                if ( m.method_1100().Keys.Count() < 2)
+                {
+                    continue;
+                }
+
+                foreach (var  atomAndPosition in m.method_1100())
+                {
+                    if (atomAndPosition.Value.field_2275 != Atoms.Ether)
+                    {
+                        continue;
+                    }
+                    foreach (HexIndex offset in HexIndex.AdjacentOffsets)
+                    {
+                        HexIndex etherPos = atomAndPosition.Key;
+                        HexIndex neighbPos = etherPos + offset;
+                        var bond = Brimstone.API.FindBondType(m, etherPos, neighbPos);
+                        if (bond != enum_126.None && m.method_1100().Keys.Contains(neighbPos))
+                        {
+                            var atomNeighboor = m.method_1100()[neighbPos];
+                            if (atomNeighboor.field_2275 == Atoms.Ether)
+                            {
+                                atoms.Add(atomAndPosition.Value);
+                            }
+                        }
+                    }
+                }
+
+            }
+            if (atoms.Any())
+            {
+                Brimstone.API.PlaySound(sim, Sounds.Reduction);
+            }
+            foreach (Atom a in atoms)
+            {
+                a.field_2275 = Brimstone.API.VanillaAtoms.salt;
+                a.field_2276 = new class_168
+                    (
+                        sim.field_3818,
+                        (enum_7)0,
+                        (enum_132)0,
+                        Brimstone.API.VanillaAtoms.salt,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
+            }
+        });
+
     }
+
 
 }

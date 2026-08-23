@@ -38,6 +38,12 @@ public static class Textures
         
         public static Texture Incantation= Brimstone.API.GetTexture(partsPath + "icons/incantation");
         public static Texture IncantationHovered = Brimstone.API.GetTexture(partsPath + "icons/incantation_hovered");
+        
+        public static Texture Portaling= Brimstone.API.GetTexture(partsPath + "icons/portaling");
+        public static Texture PortalingHovered = Brimstone.API.GetTexture(partsPath + "icons/portaling_hovered");
+        
+        public static Texture Reconstruction = Brimstone.API.GetTexture(partsPath + "icons/reconstruction");
+        public static Texture ReconstructionHovered = Brimstone.API.GetTexture(partsPath + "icons/reconstruction_hovered");
     }
     
     public static class Select
@@ -62,6 +68,9 @@ public static class Textures
         
         public static Texture IncantationGlow = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Incantation/glow");
         public static Texture IncantationStroke = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Incantation/stroke");
+        
+        public static Texture ReconstructionGlow = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Reconstruction/glow");
+        public static Texture ReconstructionStroke = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Reconstruction/stroke");
     }
 
     public static class SharedTextures 
@@ -104,6 +113,10 @@ public static class Textures
 
 
     // Glyph Specific Textures
+    public static class Reconstruction
+    {
+        public static Texture Base = Brimstone.API.GetTexture(partsPath + "Reconstruction/base");
+    }
     public static class Inquisition
     {
         public static Texture MagisBowl = Brimstone.API.GetTexture(partsPath + "Inquisition/magis_bowl");
