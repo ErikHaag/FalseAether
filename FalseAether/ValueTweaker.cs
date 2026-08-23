@@ -1,9 +1,50 @@
 ﻿using Quintessential;
+using MonoMod.Cil;
+using Mono.Cecil.Cil;
+using System;
 
 namespace FalseAether;
 
 public class ValueTweaker
 {
+    public bool Enabled;
+    public ValueTweaker(bool enabled)
+    {
+        Enabled = enabled;
+        IL.SolutionEditorBase.method_1984 += ValueTweakerPhage;
+    }
+
+    public void Unload()
+    {
+        IL.SolutionEditorBase.method_1984 -= ValueTweakerPhage;
+    }
+
+    private static void ValueTweakerPhage(ILContext context)
+    {
+        ILCursor gremlin = new(context);
+
+        if (!gremlin.TryGotoNext(MoveType.After,
+            instr => instr.MatchLdloc(4),
+            instr => instr.MatchCallvirt("SolutionEditorBase", "method_1993"),
+            instr => instr.MatchLdloc(9)))
+        {
+            throw new Exception("Could not find part draw loop");
+        }
+
+        if (!gremlin.TryGotoNext(MoveType.After,
+            instr => instr.OpCode == OpCodes.Blt_S,
+            instr => instr.MatchLdloc(3),
+            instr => instr.MatchStloc(26)))
+        {
+            throw new Exception("Could not find end of loop");
+        }
+        gremlin.EmitDelegate(() =>
+        {
+            Glyphs.tweaker.Update();
+            Glyphs.tweaker.Display(new(500, 500));
+        });
+
+    }
     public int V1 = 0;
     public int V2 = 0;
     public int V3 = 0;
@@ -11,6 +52,10 @@ public class ValueTweaker
 
     public void Update()
     {
+        if (!Enabled)
+        {
+            return;
+        }
         if (class_115.method_200(SDL2.SDL.enum_160.SDLK_y))
         {
             V1 += 1;
@@ -50,6 +95,12 @@ public class ValueTweaker
 
     public void Display(Vector2 pos)
     {
-        UI.DrawText($"{V1}, {V2}, {V3}, {V4}", pos, UI.Text, UI.TextColor, TextAlignment.Centred);
+        if (!Enabled)
+        {
+            return;
+        }
+        Vector2 lineOffset = new(0, UI.DrawText($"{V1}, {V2}, {V3}, {V4}", pos, UI.Text, UI.TextColor, TextAlignment.Centred).Height);
+        UI.DrawText($"y, u, i, o", pos + lineOffset, UI.Text, UI.TextColor, TextAlignment.Centred);
+        UI.DrawText($"h, j, k, l", pos - lineOffset, UI.Text, UI.TextColor, TextAlignment.Centred);
     }
 }

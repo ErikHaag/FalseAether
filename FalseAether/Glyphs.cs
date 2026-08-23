@@ -1,74 +1,31 @@
 ﻿// #define tweaker
 using Quintessential;
+using System.Collections.Generic;
 using System.Linq;
 using PartType = class_139;
-using MonoMod.Cil;
-using Mono.Cecil.Cil;
-using System;
-using System.Collections.Generic;
 
 namespace FalseAether;
 
 public static class Glyphs
 {
-
-#if tweaker
-    private static ValueTweaker tweaker;
-#endif
+    internal static ValueTweaker tweaker;
     public static void AddHooks()
     {
         // If you should get any mail with the subject "STINKY CHEESE", delete it immediately.
 
         Quintessential.Logger.Log(MainClass.LoggerPrefix + "Hooking");
-#if tweaker
-        tweaker = new ValueTweaker();
-        IL.SolutionEditorBase.method_1984 += ValueTweakerPhage;
-#endif
-
-
+        tweaker = new ValueTweaker(false);
+        #if tweaker
+        tweaker.Enabled = true;
+        #endif
     }
 
 
     public static void RemoveHooks()
     {
         Quintessential.Logger.Log(MainClass.LoggerPrefix + "Unhooking");
-
-
-
-#if tweaker
-        IL.SolutionEditorBase.method_1984 -= ValueTweakerPhage;
-#endif
-
+        tweaker.Unload();
     }
-
-#if tweaker
-    private static void ValueTweakerPhage(ILContext context)
-    {
-        ILCursor gremlin = new(context);
-
-        if (!gremlin.TryGotoNext(MoveType.After,
-            instr => instr.MatchLdloc(4),
-            instr => instr.MatchCallvirt("SolutionEditorBase", "method_1993"),
-            instr => instr.MatchLdloc(9)))
-        {
-            throw new Exception("Could not find part draw loop");
-        }
-
-        if (!gremlin.TryGotoNext(MoveType.After,
-            instr => instr.OpCode == OpCodes.Blt_S,
-            instr => instr.MatchLdloc(3),
-            instr => instr.MatchStloc(26)))
-        {
-            throw new Exception("Could not find end of loop");
-        }
-        gremlin.EmitDelegate(() =>
-        {
-            tweaker.Update();
-            tweaker.Display(new(500, 500));
-        });
-
-    }
-#endif
 
 
 
@@ -81,7 +38,7 @@ public static class Glyphs
 
     public static PartType PortalingIn;
     public static readonly HexIndex PortalingInput = new(0, 0);
-    
+
     public static PartType Polarization;
     public static readonly HexIndex PolarizationImmoralBowl = new(0, 0);
     public static readonly HexIndex PolarizationMoralBowl = new(1, 0);
@@ -107,7 +64,7 @@ public static class Glyphs
     public static readonly HexIndex SympathyHole1 = new(1, 0);
     public static readonly HexIndex SympathyHole2 = new(1, -1);
     public static readonly HexIndex SympathyHole3 = new(2, -1);
-    
+
     public static PartType Reconstruction;
     public static readonly HexIndex QuintLikeBowl = new(0, 0);
     public static readonly HexIndex CelestBowl1 = new(-1, -1);
@@ -182,7 +139,7 @@ public static class Glyphs
             stroke: Textures.Select.ReconstructionStroke,
             icon: Textures.Icons.Reconstruction,
             hoveredIcon: Textures.Icons.ReconstructionHovered,
-            usedHexes: new HexIndex[] { QuintLikeBowl, CelestBowl1, new HexIndex(0, -1), new HexIndex(1, -1), CelestBowl2, ReconstructionPowerHole },
+            usedHexes: new HexIndex[] { QuintLikeBowl, CelestBowl1, new(0, -1), new(1, -1), CelestBowl2, ReconstructionPowerHole },
             customPermission: MainClass.ReconstructionPermission
             );
         QApi.AddPartTypeToPanel(Reconstruction, false);
@@ -198,7 +155,7 @@ public static class Glyphs
             renderer.method_529(Textures.Holes.Celest, CelestBowl2, Vector2.Zero);
             renderer.method_528(Textures.SharedTextures.BasicHole, ReconstructionPowerHole, Vector2.Zero);
             renderer.method_529(Textures.SharedTextures.PowerGlow, ReconstructionPowerHole, Vector2.Zero);
-            
+
         });
 
         Polarization = Brimstone.API.CreateSimpleGlyph(
@@ -285,7 +242,7 @@ public static class Glyphs
             stroke: Textures.Select.IncantationStroke,
             icon: Textures.Icons.Incantation,
             hoveredIcon: Textures.Icons.IncantationHovered,
-            usedHexes: new HexIndex[] { ErepiBowl, EtherOut1, EtherOut2, SaltOut, new HexIndex(0, -1), new HexIndex(1, -1) },
+            usedHexes: new HexIndex[] { ErepiBowl, EtherOut1, EtherOut2, SaltOut, new(0, -1), new(1, -1) },
             customPermission: MainClass.IncantationPermission
             );
         QApi.AddPartTypeToPanel(Incantation, false);
@@ -395,7 +352,7 @@ public static class Glyphs
             foreach (HexIndex hole in new HexIndex[] { CuringHole1, CuringHole2 })
             {
                 renderer.method_528(Textures.SharedTextures.BasicHole, hole, Vector2.Zero);
-                class_135.method_272(Textures.Holes.Celest, (Brimstone.API.HexIndexToVector2(hole).Rotated(partDataWrapper.field_1985) + partDataWrapper.field_1984 - Textures.Holes.Celest.field_2056.ToVector2() / 2).Rounded());
+                class_135.method_272(Textures.Holes.Celest, (Brimstone.API.HexIndexToVector2(hole).Rotated(partDataWrapper.field_1985) + partDataWrapper.field_1984 - (Textures.Holes.Celest.field_2056.ToVector2() / 2)).Rounded());
             }
         });
 
@@ -423,7 +380,7 @@ public static class Glyphs
             foreach (HexIndex hole in new HexIndex[] { SympathyHole1, SympathyHole2, SympathyHole3 })
             {
                 renderer.method_528(Textures.SharedTextures.BasicHole, hole, Vector2.Zero);
-                class_135.method_272(Textures.Holes.Salt, (Brimstone.API.HexIndexToVector2(hole).Rotated(partDataWrapper.field_1985) + partDataWrapper.field_1984 - Textures.Holes.Salt.field_2056.ToVector2() / 2).Rounded());
+                class_135.method_272(Textures.Holes.Salt, (Brimstone.API.HexIndexToVector2(hole).Rotated(partDataWrapper.field_1985) + partDataWrapper.field_1984 - (Textures.Holes.Salt.field_2056.ToVector2() / 2)).Rounded());
             }
         });
 
@@ -554,13 +511,16 @@ public static class Glyphs
             Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionSoulOut, time, Textures.Irises.Soul, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[2]) : struct_18.field_1431);
             Brimstone.API.DrawIris(renderer, partDataWrapper, ReductionVoidOut, time, Textures.Irises.Void, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[3]) : struct_18.field_1431);
             renderer.method_528(Textures.SharedTextures.BasicHole, ReductionIn, Vector2.Zero);
-            class_135.method_272(Textures.Holes.Erepiessence, (Brimstone.API.HexIndexToVector2(ReductionIn).Rotated(partDataWrapper.field_1985) + partDataWrapper.field_1984 - Textures.Holes.Erepiessence.field_2056.ToVector2() / 2).Rounded());
+            class_135.method_272(Textures.Holes.Erepiessence, (Brimstone.API.HexIndexToVector2(ReductionIn).Rotated(partDataWrapper.field_1985) + partDataWrapper.field_1984 - (Textures.Holes.Erepiessence.field_2056.ToVector2() / 2)).Rounded());
         });
 
         #endregion
         #endregion
+        LoadGlyphBehavior();
+    }
 
-        /*
+    public static void LoadGlyphBehavior() {
+            /*
          * 
          * Hex Method names:
          * (Bowl && Hole) == method_99
@@ -708,11 +668,11 @@ public static class Glyphs
                         30
                     );
                 }
-                
+
                 Brimstone.API.RemoveAtom(Input);
                 Brimstone.API.DrawFallingAtom(seb, Input);
 
-                
+
             }
 
             else if (type == Polarization)
@@ -1060,7 +1020,7 @@ public static class Glyphs
                     {
                         return;
                     }
-                    
+
                     Brimstone.API.PlaySound(sim, Sounds.Reduction);
                     pss.field_2743 = true;
                     pss.field_2744 = new AtomType[3] { Atoms.Ether, Salt, Atoms.Ether };
@@ -1089,7 +1049,7 @@ public static class Glyphs
                 else if (pss.field_2743)
                 {
 
-                    Molecule output = new Molecule();
+                    Molecule output = new();
                     output.method_1105(new Atom(pss.field_2744[0]), part.method_1184(EtherOut1));
                     output.method_1105(new Atom(pss.field_2744[1]), part.method_1184(SaltOut));
                     output.method_1105(new Atom(pss.field_2744[2]), part.method_1184(EtherOut2));
@@ -1099,11 +1059,6 @@ public static class Glyphs
                     output.method_1111(enum_126.Standard, part.method_1184(SaltOut), part.method_1184(EtherOut2));
 
                     sim.field_3823.Add(output);
-                    
-                    // Brimstone.API.AddAtom(sim, part, EtherOut1, pss.field_2744[0]);
-                    // Brimstone.API.AddAtom(sim, part, SaltOut, pss.field_2744[1]);
-                    // Brimstone.API.AddAtom(sim, part, EtherOut2, pss.field_2744[2]);
-                    
                 }
 
             }
@@ -1232,15 +1187,15 @@ public static class Glyphs
             {
                 return;
             }
-            List<Atom> atoms = new List<Atom>();
+            List<Atom> atoms = new();
             foreach (Molecule m in sim.field_3823)
             {
-                if ( m.method_1100().Keys.Count() < 2)
+                if (m.method_1100().Keys.Count() < 2)
                 {
                     continue;
                 }
 
-                foreach (var  atomAndPosition in m.method_1100())
+                foreach (var atomAndPosition in m.method_1100())
                 {
                     if (atomAndPosition.Value.field_2275 != Atoms.Ether)
                     {
@@ -1275,7 +1230,7 @@ public static class Glyphs
                         sim.field_3818,
                         (enum_7)0,
                         (enum_132)0,
-                        Brimstone.API.VanillaAtoms.salt,
+                        Atoms.Ether,
                         class_238.field_1989.field_81.field_611,
                         30
                     );
