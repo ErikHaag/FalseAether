@@ -634,7 +634,10 @@ public static class Glyphs
                         QuintSubject.field_2280,
                         class_238.field_1989.field_81.field_614,
                         30
+
+                        
                     );
+                    Brimstone.API.PlaySound(sim, Sounds.Reconstruction_Quint_Erepi);
 
                 }
                 else if (QuintSubject.field_2280 == Atoms.Erepiessence && Input.field_2280 == Atoms.Daedrum)
@@ -649,6 +652,7 @@ public static class Glyphs
                         class_238.field_1989.field_81.field_614,
                         30
                     );
+                    Brimstone.API.PlaySound(sim, Sounds.Reconstruction_Erepi_Quint);
                 }
 
                 if (Input.field_2280 == Atoms.Magis)
@@ -673,6 +677,7 @@ public static class Glyphs
                         class_238.field_1989.field_81.field_614,
                         30
                     );
+                    Brimstone.API.PlaySound(sim, Sounds.Reconstruction_Celest_Ether);
                 }
                 else
                 {
@@ -696,6 +701,7 @@ public static class Glyphs
                         class_238.field_1989.field_81.field_611,
                         30
                     );
+                    Brimstone.API.PlaySound(sim, Sounds.Reconstruction_Celest_Salt);
                 }
 
                 Brimstone.API.RemoveAtom(Input);
@@ -1050,7 +1056,7 @@ public static class Glyphs
                         return;
                     }
 
-                    Brimstone.API.PlaySound(sim, Sounds.Reduction);
+                    
                     pss.field_2743 = true;
                     pss.field_2744 = new AtomType[3] { Atoms.Ether, Salt, Atoms.Ether };
                     Brimstone.API.ChangeAtom(EBowl, Salt);
@@ -1074,6 +1080,7 @@ public static class Glyphs
                                 0
                             )
                         );
+                    Brimstone.API.PlaySound(sim, Sounds.Incantation);
                 }
                 else if (pss.field_2743)
                 {
@@ -1249,7 +1256,7 @@ public static class Glyphs
             }
             if (atoms.Any())
             {
-                Brimstone.API.PlaySound(sim, Sounds.Reduction);
+                Brimstone.API.PlaySound(sim, Sounds.EtherPoof);
             }
             foreach (Atom a in atoms)
             {
@@ -1264,6 +1271,7 @@ public static class Glyphs
                         30
                     );
             }
+
         });
 
     }
