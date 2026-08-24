@@ -250,15 +250,44 @@ public static class Glyphs
         {
             Brimstone.API.GetRenderingHelpers(part, pos, editor, out PartSimState pss, out class_236 partDataWrapper, out float time);
             Vector2 pivot = new(123, 190);
-            renderer.method_523(Textures.Incantation.IncantationBase, new Vector2(-1, -1), pivot, 0);
+            Vector2 offset = new(-1, -1);
+            renderer.method_523(Textures.Incantation.Base, offset, pivot, 0);
             renderer.method_528(Textures.SharedTextures.BasicBowl, ErepiBowl, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.BasicBowl, SaltOut, Vector2.Zero);
-            renderer.method_528(Textures.SharedTextures.BasicBowl, EtherOut1, Vector2.Zero);
-            renderer.method_528(Textures.SharedTextures.BasicBowl, EtherOut2, Vector2.Zero);
-            Brimstone.API.DrawIris(renderer, partDataWrapper, EtherOut1, time, Textures.Irises.Ether, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
-            Brimstone.API.DrawIris(renderer, partDataWrapper, SaltOut, time, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[1]) : struct_18.field_1431);
-            Brimstone.API.DrawIris(renderer, partDataWrapper, EtherOut2, time, Textures.Irises.Ether, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[2]) : struct_18.field_1431);
 
+
+            renderer.method_523(Textures.Incantation.OutputUnderIris, offset, pivot, 0);
+            Molecule output = null;
+            if (pss.field_2743)
+            {
+                output = new();
+                output.method_1105(new Atom(pss.field_2744[0]), part.method_1184(EtherOut1));
+                output.method_1105(new Atom(pss.field_2744[1]), part.method_1184(SaltOut));
+                output.method_1105(new Atom(pss.field_2744[2]), part.method_1184(EtherOut2));
+                output.method_1111(enum_126.Standard, part.method_1184(EtherOut1), part.method_1184(SaltOut));
+                output.method_1111(enum_126.Standard, part.method_1184(SaltOut), part.method_1184(EtherOut2));
+            }
+
+
+
+            renderer.method_523(Textures.Incantation.OutputAboveIris, offset, pivot, 0);
+
+            /*
+            class_256[] emptyAnimation = new class_256[]
+            {
+                class_238.field_1989.field_73
+            };
+
+            Brimstone.API.DrawIris(renderer, partDataWrapper, EtherOut1, time, class_238.field_1989.field_90.field_228.field_272, emptyAnimation, class_238.field_1989.field_73, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, SaltOut, time, class_238.field_1989.field_90.field_228.field_272, emptyAnimation, class_238.field_1989.field_73, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[1]) : struct_18.field_1431);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, EtherOut2, time, class_238.field_1989.field_90.field_228.field_272, emptyAnimation, class_238.field_1989.field_73, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[2]) : struct_18.field_1431);
+
+            renderer.method_521(class_238.field_1989.field_90.field_196, new Vector2(-23f + 82f, 24f));
+            renderer.method_521(class_238.field_1989.field_90.field_196, new Vector2(-23f, 24f));
+
+            Brimstone.API.DrawIris(renderer, partDataWrapper, EtherOut1, time, class_238.field_1989.field_73, emptyAnimation, class_238.field_1989.field_90.field_228.field_271, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[0]) : struct_18.field_1431);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, SaltOut, time, class_238.field_1989.field_73, emptyAnimation, class_238.field_1989.field_90.field_228.field_271, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[1]) : struct_18.field_1431);
+            Brimstone.API.DrawIris(renderer, partDataWrapper, EtherOut2, time, class_238.field_1989.field_73, emptyAnimation, class_238.field_1989.field_90.field_228.field_271, pss.field_2743 ? Brimstone.API.ConvertToMaybe(pss.field_2744[2]) : struct_18.field_1431);
+            */
         });
 
         PortalingIn = Brimstone.API.CreateSimpleGlyph(

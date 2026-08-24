@@ -125,7 +125,9 @@ public static class Textures
 
     public static class Incantation
     {
-        public static Texture IncantationBase = Brimstone.API.GetTexture(partsPath + "Incantation/base");
+        public static Texture Base = Brimstone.API.GetTexture(partsPath + "Incantation/base");
+        public static Texture OutputUnderIris = Brimstone.API.GetTexture(partsPath + "Incantation/output_under_iris");
+        public static Texture OutputAboveIris = Brimstone.API.GetTexture(partsPath + "Incantation/output_above_iris");
     }
     public static class Polarization
     {
