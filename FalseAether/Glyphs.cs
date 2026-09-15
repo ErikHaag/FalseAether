@@ -2,6 +2,7 @@
 using Quintessential;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using PartType = class_139;
 
 namespace FalseAether;
@@ -55,15 +56,14 @@ public static class Glyphs
     public static PartType TrueSight;
 
     public static PartType Curing;
-    public static readonly HexIndex CuringBowl = new(0, 0);
-    public static readonly HexIndex CuringHole1 = new(0, -1);
-    public static readonly HexIndex CuringHole2 = new(1, -1);
+    public static readonly HexIndex CuringHole = new(0, 0);
+    public static readonly HexIndex CuringBowl1 = new(0, -1);
+    public static readonly HexIndex CuringBowl2 = new(1, -1);
 
-    public static PartType Sympathy;
-    public static readonly HexIndex SympathyBowl = new(0, 0);
-    public static readonly HexIndex SympathyHole1 = new(1, 0);
-    public static readonly HexIndex SympathyHole2 = new(1, -1);
-    public static readonly HexIndex SympathyHole3 = new(2, -1);
+    public static PartType Suspension;
+    public static readonly HexIndex SuspensionAnymaeBowl = new(0, 0);
+    public static readonly HexIndex SuspensionLeftSalt = new(0, -1);
+    public static readonly HexIndex SuspensionRightSalt = new(1, -1);
 
     public static PartType Reconstruction;
     public static readonly HexIndex QuintLikeBowl = new(0, 0);
@@ -360,56 +360,61 @@ public static class Glyphs
 
             ID: "FalseAether-Curing",
             name: "Glyph of Curing",
-            description: "The glyph of curing sacrifices a pair of celest to reduce any non-neutral anymae to salt.",
+            description: "The glyph of curing sacrifices a celest to reduce up to two non-neutral anymae to salt.",
             cost: 10,
             glow: Textures.Select.CuringGlow,
             stroke: Textures.Select.CuringStroke,
             icon: Textures.Icons.Curing,
             hoveredIcon: Textures.Icons.CuringHovered,
-            usedHexes: new HexIndex[] { CuringBowl, CuringHole1, CuringHole2 },
+            usedHexes: new HexIndex[] { CuringHole, CuringBowl1, CuringBowl2 },
             customPermission: MainClass.CuringPermission
             );
         QApi.AddPartTypeToPanel(Curing, false);
         QApi.AddPartType(Curing, static (part, pos, editor, renderer) =>
         {
             Brimstone.API.GetRenderingHelpers(part, pos, editor, out PartSimState pss, out class_236 partDataWrapper, out float time);
+            Vector2 offset = new(-1, -1);
             Vector2 pivot = new(82, 119);
-            renderer.method_523(Textures.Curing.Base, new Vector2(-1, -1), pivot, 0);
-            renderer.method_528(Textures.SharedTextures.BasicBowl, CuringBowl, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.PolarEngraving, CuringBowl, Vector2.Zero);
-            foreach (HexIndex hole in new HexIndex[] { CuringHole1, CuringHole2 })
-            {
-                renderer.method_528(Textures.SharedTextures.BasicHole, hole, Vector2.Zero);
-                class_135.method_272(Textures.Holes.Celest, (Brimstone.API.HexIndexToVector2(hole).Rotated(partDataWrapper.field_1985) + partDataWrapper.field_1984 - (Textures.Holes.Celest.field_2056.ToVector2() / 2)).Rounded());
-            }
+            renderer.method_523(Textures.Curing.Base, offset, pivot, 0);
+            renderer.method_528(Textures.Curing.Bowl, CuringBowl1, Vector2.Zero);
+            renderer.method_528(Textures.Curing.Bowl, CuringBowl2, Vector2.Zero);
+            renderer.method_528(Textures.Curing.Hole, CuringHole, Vector2.Zero);
+            renderer.method_529(Textures.Curing.AnymaeSymbol, CuringBowl1 , Vector2.Zero);
+            renderer.method_529(Textures.Curing.AnymaeSymbol, CuringBowl2 , Vector2.Zero);
+            renderer.method_529(Textures.Holes.Celest, CuringHole , Vector2.Zero);
+            renderer.method_521(Textures.Curing.Connectors, pivot - new Vector2(36, 65));
+
         });
 
-        Sympathy = Brimstone.API.CreateSimpleGlyph(
+        Suspension = Brimstone.API.CreateSimpleGlyph(
 
-            ID: "FalseAether-Sympathy",
-            name: "Glyph of Sympathy",
-            description: "The glyph of sympathy sacrifices three salt to reverse any non-neutral anymae's morality without affecting their grace.",
-            cost: 50,
+            ID: "FalseAether-Suspension",
+            name: "Glyph of Suspension",
+            description: "The glyph of suspension duplicates an animismus onto two salt, flipping the host in the process.",
+            cost: 30,
             glow: Textures.Select.SympathyGlow,
             stroke: Textures.Select.SympathyStroke,
             icon: Textures.Icons.Sympathy,
             hoveredIcon: Textures.Icons.SympathyHovered,
-            usedHexes: new HexIndex[] { SympathyBowl, SympathyHole1, SympathyHole2, SympathyHole3 },
-            customPermission: MainClass.SympathyPermission
+            usedHexes: new HexIndex[] { SuspensionAnymaeBowl, SuspensionLeftSalt, SuspensionRightSalt },
+            customPermission: MainClass.SuspensionPermission
             );
-        QApi.AddPartTypeToPanel(Sympathy, false);
-        QApi.AddPartType(Sympathy, static (part, pos, editor, renderer) =>
+        QApi.AddPartTypeToPanel(Suspension, false);
+        QApi.AddPartType(Suspension, static (part, pos, editor, renderer) =>
         {
             Brimstone.API.GetRenderingHelpers(part, pos, editor, out PartSimState pss, out class_236 partDataWrapper, out float time);
-            Vector2 pivot = new(164, 119);
-            renderer.method_523(Textures.Sympathy.Base, new Vector2(-1, -1), pivot, 0);
-            renderer.method_528(Textures.SharedTextures.BasicBowl, SympathyBowl, Vector2.Zero);
-            renderer.method_529(Textures.SharedTextures.PolarEngraving, SympathyBowl, Vector2.Zero);
-            foreach (HexIndex hole in new HexIndex[] { SympathyHole1, SympathyHole2, SympathyHole3 })
-            {
-                renderer.method_528(Textures.SharedTextures.BasicHole, hole, Vector2.Zero);
-                class_135.method_272(Textures.Holes.Salt, (Brimstone.API.HexIndexToVector2(hole).Rotated(partDataWrapper.field_1985) + partDataWrapper.field_1984 - (Textures.Holes.Salt.field_2056.ToVector2() / 2)).Rounded());
-            }
+            Vector2 pivot = new(82, 119);
+            Vector2 offset = new(-1, -1); 
+            renderer.method_523(Textures.Suspension.Base, offset, pivot, 0);
+            renderer.method_528(Textures.Suspension.Bowl, SuspensionAnymaeBowl, Vector2.Zero);
+            renderer.method_528(Textures.Suspension.Bowl, SuspensionLeftSalt, Vector2.Zero);
+            renderer.method_528(Textures.Suspension.Bowl, SuspensionRightSalt, Vector2.Zero);
+            renderer.method_529(Textures.Suspension.AnymaeSymbol, SuspensionAnymaeBowl, Vector2.Zero);
+            renderer.method_529(Textures.Suspension.SaltSymbol, SuspensionLeftSalt, Vector2.Zero);
+            renderer.method_529(Textures.Suspension.SaltSymbol, SuspensionRightSalt, Vector2.Zero);
+            renderer.method_529(Textures.Suspension.SaltSymbol, SuspensionRightSalt, Vector2.Zero);
+            renderer.method_521(Textures.Suspension.Connectors, pivot - new Vector2(36, 65));
+            
         });
 
         #endregion
@@ -634,7 +639,7 @@ public static class Glyphs
                         class_238.field_1989.field_81.field_614,
                         30
 
-                        
+
                     );
                     Brimstone.API.PlaySound(sim, Sounds.Reconstruction_Quint_Erepi);
 
@@ -857,74 +862,94 @@ public static class Glyphs
             else if (type == Curing)
             {
 
-                if (!(sim.FindAtomRelative(part, CuringBowl).method_99(out AtomReference TBCured) && sim.FindAtomRelative(part, CuringHole1).method_99(out AtomReference Sac1) && sim.FindAtomRelative(part, CuringHole2).method_99(out AtomReference Sac2)))
+                bool hasLeft = sim.FindAtomRelative(part, CuringBowl1).method_99(out AtomReference TBCured1);
+                bool hasRight = sim.FindAtomRelative(part, CuringBowl2).method_99(out AtomReference TBCured2);
+                if (!(hasLeft || hasRight))
                 {
                     return;
                 }
-                if (Sac1.field_2281 || Sac1.field_2282)
+                if (!sim.FindAtomRelative(part, CuringHole).method_99(out AtomReference Celest))
                 {
                     return;
                 }
-                if (Sac2.field_2281 || Sac2.field_2282)
+                if (Celest.field_2281 || Celest.field_2282)
                 {
                     return;
                 }
-                if (!(Sac1.field_2280 == Sac2.field_2280) || (!(Sac1.field_2280 == Atoms.Celest)))
+                if (Celest.field_2280 != Atoms.Celest)
                 {
                     return;
                 }
-                if (!LookupTables.AttributesFromAnymae(TBCured.field_2280, out int morality, out int grace))
-                {
-                    return;
-                }
-                if (morality == 0 && grace == 0)
-                {
-                    return;
-                }
-                Brimstone.API.RemoveAtom(Sac1);
-                Brimstone.API.RemoveAtom(Sac2);
-                Brimstone.API.DrawFallingAtom(seb, Sac1);
-                Brimstone.API.DrawFallingAtom(seb, Sac2);
 
-                Brimstone.API.ChangeAtom(TBCured, Brimstone.API.VanillaAtoms.salt);
+                int morality = 0;
+                int morality2 = 0;
+                int grace = 0;
+                int grace2 = 0;
+                
+                if ((hasLeft && !LookupTables.AttributesFromAnymae(TBCured1.field_2280, out morality, out grace)) || (hasRight && !LookupTables.AttributesFromAnymae(TBCured2.field_2280, out morality2, out grace2)))
+                {
+                    return;
+                }
+                if ( (morality == 0 && grace == 0) && (morality2 == 0 && grace2 == 0))
+                {
+                    return;
+                }
+                Brimstone.API.RemoveAtom(Celest);
+                Brimstone.API.DrawFallingAtom(seb, Celest);
+
+                if (hasLeft)
+                {
+
+                    Brimstone.API.ChangeAtom(TBCured1, Brimstone.API.VanillaAtoms.salt);
+                }
+                if (hasRight)
+                {
+                    Brimstone.API.ChangeAtom(TBCured2, Brimstone.API.VanillaAtoms.salt);
+                }
                 Brimstone.API.PlaySound(sim, Sounds.Curing);
 
-                TBCured.field_2279.field_2276 = new class_168
+                if (hasLeft)
+                {
+                    TBCured1.field_2279.field_2276 = new class_168
                     (
                         seb,
                         (enum_7)0,
                         (enum_132)0,
-                        TBCured.field_2280,
+                        TBCured1.field_2280,
                         class_238.field_1989.field_81.field_611,
                         30
                     );
 
+                }
+
+                if (hasRight)
+                {
+                    TBCured2.field_2279.field_2276 = new class_168
+                    (
+                        seb,
+                        (enum_7)0,
+                        (enum_132)0,
+                        TBCured2.field_2280,
+                        class_238.field_1989.field_81.field_611,
+                        30
+                    );
+
+                }
+
             }
-            else if (type == Sympathy)
+            else if (type == Suspension)
             {
 
 
-                if (!(sim.FindAtomRelative(part, SympathyBowl).method_99(out AtomReference SympSubject) && sim.FindAtomRelative(part, SympathyHole1).method_99(out AtomReference Sac1) && sim.FindAtomRelative(part, SympathyHole2).method_99(out AtomReference Sac2) && sim.FindAtomRelative(part, SympathyHole3).method_99(out AtomReference Sac3)))
+                if (!(sim.FindAtomRelative(part, SuspensionAnymaeBowl).method_99(out AtomReference TBFlipped) && sim.FindAtomRelative(part, SuspensionLeftSalt).method_99(out AtomReference LeftSalt) && sim.FindAtomRelative(part, SuspensionRightSalt).method_99(out AtomReference RightSalt)))
                 {
                     return;
                 }
-                if (Sac1.field_2281 || Sac1.field_2282)
+                if (!(LeftSalt.field_2280 == RightSalt.field_2280) || !(LeftSalt.field_2280 == Brimstone.API.VanillaAtoms.salt))
                 {
                     return;
                 }
-                if (Sac2.field_2281 || Sac2.field_2282)
-                {
-                    return;
-                }
-                if (Sac3.field_2281 || Sac3.field_2282)
-                {
-                    return;
-                }
-                if (!(Sac1.field_2280 == Sac2.field_2280) && !(Sac1.field_2280 == Sac3.field_2280) && !(Sac1.field_2280 == Brimstone.API.VanillaAtoms.salt))
-                {
-                    return;
-                }
-                if (!LookupTables.AttributesFromAnymae(SympSubject.field_2280, out int morality, out int grace))
+                if (!LookupTables.AttributesFromAnymae(TBFlipped.field_2280, out int morality, out int grace))
                 {
                     return;
                 }
@@ -932,23 +957,36 @@ public static class Glyphs
                 {
                     return;
                 }
-                Brimstone.API.RemoveAtom(Sac1);
-                Brimstone.API.RemoveAtom(Sac2);
-                Brimstone.API.RemoveAtom(Sac3);
-                Brimstone.API.DrawFallingAtom(seb, Sac1);
-                Brimstone.API.DrawFallingAtom(seb, Sac2);
-                Brimstone.API.DrawFallingAtom(seb, Sac3);
 
                 LookupTables.AnymaeFromAttributes(morality * -1, grace, out AtomType NewMorality);
+                LookupTables.AnymaeFromAttributes(morality, grace, out AtomType OldMorality);
 
-                Brimstone.API.ChangeAtom(SympSubject, NewMorality);
+                Brimstone.API.ChangeAtom(TBFlipped, NewMorality);
+                Brimstone.API.ChangeAtom(LeftSalt, OldMorality);
+                Brimstone.API.ChangeAtom(RightSalt, OldMorality);
                 Brimstone.API.PlaySound(sim, Sounds.Sympathy);
 
-                SympSubject.field_2279.field_2276 = new class_168(
+                TBFlipped.field_2279.field_2276 = new class_168(
                     seb,
                     (enum_7)0,
                     (enum_132)0,
-                    SympSubject.field_2280,
+                    TBFlipped.field_2280,
+                    class_238.field_1989.field_81.field_611,
+                    30
+                );
+                LeftSalt.field_2279.field_2276 = new class_168(
+                    seb,
+                    (enum_7)0,
+                    (enum_132)0,
+                    LeftSalt.field_2280,
+                    class_238.field_1989.field_81.field_611,
+                    30
+                );
+                RightSalt.field_2279.field_2276 = new class_168(
+                    seb,
+                    (enum_7)0,
+                    (enum_132)0,
+                    RightSalt.field_2280,
                     class_238.field_1989.field_81.field_611,
                     30
                 );

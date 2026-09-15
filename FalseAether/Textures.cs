@@ -63,9 +63,9 @@ public static class Textures
         public static Texture CuringGlow = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Curing/glow");
         public static Texture CuringStroke = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Curing/stroke");
 
-        public static Texture SympathyGlow = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Sympathy/glow");
-        public static Texture SympathyStroke = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Sympathy/stroke");
-        
+        public static Texture SympathyGlow = CuringGlow;
+        public static Texture SympathyStroke = CuringStroke;
+
         public static Texture IncantationGlow = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Incantation/glow");
         public static Texture IncantationStroke = Brimstone.API.GetTexture("textures/select/erikhaag/FalseAether/Incantation/stroke");
         
@@ -145,6 +145,13 @@ public static class Textures
     public static class Curing
     {
         public static Texture Base = Brimstone.API.GetTexture(partsPath + "Curing/base");
+        public static Texture Connectors = Brimstone.API.GetTexture(partsPath + "Curing/connections");
+        public static Texture AnymaeSymbol = Brimstone.API.GetTexture(partsPath + "Curing/anymae_symbol");
+        public static Texture Bowl = Brimstone.API.GetTexture(partsPath + "Curing/curing_bowl");
+        public static Texture Hole = Brimstone.API.GetTexture(partsPath + "Curing/input");
+        public static Texture SaltSymbol = Brimstone.API.GetTexture(partsPath + "Curing/symbol_salt");
+        
+        
         
     }
     public static class Absolution
@@ -167,9 +174,14 @@ public static class Textures
         public static Texture TrueSightEye = Brimstone.API.GetTexture(partsPath + "TrueSight/truesight_eye");
 
     }
-    public static class Sympathy
+    public static class Suspension
     {
-        public static Texture Base = Brimstone.API.GetTexture(partsPath + "Sympathy/base");
+        public static Texture Base = Brimstone.API.GetTexture(partsPath + "Suspension/base");
+        public static Texture Connectors = Brimstone.API.GetTexture(partsPath + "Suspension/connections");
+        public static Texture Bowl = Brimstone.API.GetTexture(partsPath + "Suspension/suspension_bowl");
+        public static Texture AnymaeSymbol = Brimstone.API.GetTexture(partsPath + "Suspension/anymae_symbol");
+        public static Texture SaltSymbol = Brimstone.API.GetTexture(partsPath + "Suspension/symbol_salt");
+
     }
 
     public static class Olympus
