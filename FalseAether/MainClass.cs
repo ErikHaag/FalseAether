@@ -10,7 +10,7 @@ public class MainClass : QuintessentialMod
     public static readonly string EmpowermentPermission = "FalseAether:Empowerment";
     public static readonly string TrueSightPermission = "FalseAether:TrueSight";
     public static readonly string CuringPermission = "FalseAether:Curing";
-    public static readonly string SympathyPermission = "FalseAether:Sympathy";
+    public static readonly string SuspensionPermission = "FalseAether:Sympathy";
     public static readonly string EnchantmentPermission = "FalseAether:Enchantment";
     public static readonly string OlympusPermission = "FalseAether:Olympus";
     public static readonly string ReductionPermission = "FalseAether:Reduction";
@@ -41,7 +41,7 @@ public class MainClass : QuintessentialMod
         QApi.AddPuzzlePermission(EmpowermentPermission, "Glyph of Empowerment", "False Aether: Gracing Anymae");
         QApi.AddPuzzlePermission(TrueSightPermission, "Glyph of True Sight", "False Aether: Gracing Anymae");
         QApi.AddPuzzlePermission(CuringPermission, "Glyph of Curing", "False Aether: Gracing Anymae");
-        QApi.AddPuzzlePermission(SympathyPermission, "Glyph of Sympathy", "False Aether: Gracing Anymae");
+        QApi.AddPuzzlePermission(SuspensionPermission, "Glyph of Suspension", "False Aether: Gracing Anymae");
         QApi.AddPuzzlePermission(EnchantmentPermission, "Glyph of Enchantment", "False Aether: Heavenlies and Earthlies");
         QApi.AddPuzzlePermission(ReconstructionPermission, "Glyph of Reconstruction", "False Aether: Heavenlies and Earthlies");
         QApi.AddPuzzlePermission(PortalingPermission, "Glyph of Portaling", "False Aether: Heavenlies and Earthlies");
